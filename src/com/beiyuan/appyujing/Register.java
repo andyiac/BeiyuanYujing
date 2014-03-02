@@ -14,6 +14,7 @@ public class Register extends Activity{
 	}
 	
 	private void initListView() {
+		  
 		
 	}
 	
