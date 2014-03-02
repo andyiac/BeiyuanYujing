@@ -48,28 +48,48 @@ public final class R {
         public static final int tab_settings_pressed=0x7f020013;
         public static final int tab_weixin_normal=0x7f020014;
         public static final int tab_weixin_pressed=0x7f020015;
+        public static final int title_back_focused=0x7f020016;
+        public static final int title_back_normal=0x7f020017;
+        public static final int title_back_pressed=0x7f020018;
+        public static final int title_bg=0x7f020019;
+        public static final int title_btn=0x7f02001a;
+        public static final int title_btn_back=0x7f02001b;
+        public static final int title_btn_focused=0x7f02001c;
+        public static final int title_btn_normal=0x7f02001d;
+        public static final int title_btn_pressed=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f090013;
-        public static final int button1=0x7f090009;
-        public static final int button2=0x7f09000a;
-        public static final int fragment1=0x7f090008;
+        public static final int action_settings=0x7f09001e;
+        public static final int button1=0x7f09000a;
+        public static final int button2=0x7f09000b;
+        public static final int fragment1=0x7f090009;
         public static final int fragment2=0x7f090000;
-        public static final int fragment3=0x7f09000b;
-        public static final int fragment4=0x7f09000c;
-        public static final int imageView1=0x7f090012;
-        public static final int item_title=0x7f090011;
-        public static final int linearLayout1=0x7f09000d;
-        public static final int list1=0x7f09000f;
-        public static final int menu_1=0x7f09000e;
+        public static final int fragment3=0x7f09000c;
+        public static final int fragment4=0x7f09000d;
+        public static final int imageView1=0x7f09001a;
+        public static final int item_title=0x7f090019;
+        public static final int left_btn=0x7f09001b;
+        public static final int linearLayout1=0x7f09000e;
+        public static final int list1=0x7f090010;
+        public static final int menu_1=0x7f09000f;
+        public static final int radio_instructor=0x7f090015;
+        public static final int radio_student=0x7f090017;
+        public static final int radio_teacher=0x7f090016;
+        public static final int radiogroup=0x7f090014;
         public static final int realtabcontent=0x7f090001;
-        public static final int relativeLayout1=0x7f090010;
+        public static final int relativeLayout1=0x7f090018;
+        public static final int right_btn=0x7f09001d;
         public static final int tab_rb_1=0x7f090003;
         public static final int tab_rb_2=0x7f090004;
         public static final int tab_rb_3=0x7f090005;
         public static final int tab_rb_4=0x7f090006;
         public static final int tab_rb_5=0x7f090007;
         public static final int tab_rg_menu=0x7f090002;
+        public static final int title=0x7f090008;
+        public static final int title_text=0x7f09001c;
+        public static final int user_info_username=0x7f090011;
+        public static final int user_info_usernum=0x7f090012;
+        public static final int user_info_userphone=0x7f090013;
     }
     public static final class layout {
         public static final int aboutus=0x7f030000;
@@ -83,6 +103,7 @@ public final class R {
         public static final int login=0x7f030008;
         public static final int rigster=0x7f030009;
         public static final int simple_list_item=0x7f03000a;
+        public static final int title_view=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -120,6 +141,9 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        public static final int Text=0x7f070003;
+        public static final int Text_Title=0x7f070005;
+        public static final int Text_Title_Button=0x7f070004;
         public static final int tab_rb_style=0x7f070002;
     }
 }

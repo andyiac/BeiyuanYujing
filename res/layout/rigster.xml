@@ -4,224 +4,139 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-   <!--  <ScrollView
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/patient_info_gridview"
-        android:scrollbars="none" >
- -->
- 
+        android:layout_height="1000sp"
+        android:orientation="vertical" >
+
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="1000sp"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="15dp" >
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="60dip"
+                android:orientation="horizontal" >
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/user_info_username"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="60dip"
-                    android:orientation="horizontal" >
+                    android:hint="姓名:"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/gray"
+                    android:textSize="18dip" >
 
-                    <EditText
-                        android:id="@+id/user_info_username"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="姓名:"
-                        android:paddingLeft="5dp"
-                        android:textColor="@color/gray"
-                        android:textSize="18dip" >
-
-                        <requestFocus />
-                    </EditText>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <EditText
-                        android:id="@+id/user_info_usernum"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="身份证号:"
-                        android:paddingLeft="5dp"
-                        android:password="true"
-                        android:textColor="@color/gray"
-                        android:textSize="18dip" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <EditText
-                        android:id="@+id/user_info_userphone"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="手机号:"
-                        android:paddingLeft="5dp"
-                        android:textColor="@color/gray"
-                        android:textSize="18dip" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <RadioGroup
-                        android:id="@+id/radiogroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:orientation="horizontal" >
-
-                        <RadioButton
-                            android:id="@+id/radio_instructor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="辅导员"
-                            android:textColor="@color/gray" />
-
-                        <RadioButton
-                            android:id="@+id/radio_teacher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="教师"
-                            android:textColor="@color/gray" />
-                        <RadioButton 
-                            android:id="@+id/radio_student"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="学生"
-                            android:textColor="@color/gray"
-                            />
-                    </RadioGroup>
-                </LinearLayout>
-                </LinearLayout>
-                </LinearLayout>
-<!-- 
-                <LinearLayout
-                    android:id="@+id/doctor_infolayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dip"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="科	      室:"
-                            android:textColor="@color/gray"
-                            android:textSize="18dip" />
-
-                        <Spinner
-                            android:id="@+id/register_spinner"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dip"
-                        android:orientation="horizontal" >
-
-                        <EditText
-                            android:id="@+id/user_info_hospital"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="所属医院"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/gray"
-                            android:textSize="18dip" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dip"
-                        android:orientation="horizontal" >
-
-                        <EditText
-                            android:id="@+id/user_info_title"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="职      称:"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/gray"
-                            android:textSize="18dip" />
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/user_info_direction"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dip"
-                        android:hint="主治方向:"
-                        android:paddingLeft="5dp"
-                        android:singleLine="false"
-                        android:textColor="@color/gray"
-                        android:textSize="18dip" />
-                </LinearLayout>
+                    <requestFocus />
+                </EditText>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:orientation="horizontal"
-                android:paddingLeft="30px" >
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/regis_cancel"
+                <EditText
+                    android:id="@+id/user_info_usernum"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="身份证号:"
+                    android:paddingLeft="5dp"
+                    android:password="true"
+                    android:textColor="@color/gray"
+                    android:textSize="18dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/user_info_userphone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="手机号:"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/gray"
+                    android:textSize="18dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
+
+                <RadioGroup
+                    android:id="@+id/radiogroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="注册" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio_instructor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="辅导员"
+                        android:textColor="@color/gray" />
+
+                    <RadioButton
+                        android:id="@+id/radio_teacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="教师"
+                        android:textColor="@color/gray" />
+
+                    <RadioButton
+                        android:id="@+id/radio_student"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学生"
+                        android:textColor="@color/gray" />
+                </RadioGroup>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/tab_top"
+        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
-    </LinearLayout> -->
-     
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp" >
+
+        <TextView
+            android:id="@+id/menu_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/personalcenter"
+            android:textColor="@color/gray" />
+    </LinearLayout>
+
+    <com.beiyuan.appyujing.view.CornerListView
+        android:id="@+id/list1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_bg_listview"
+        android:cacheColorHint="@null" />
 
 </RelativeLayout>
