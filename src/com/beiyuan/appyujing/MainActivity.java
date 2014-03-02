@@ -15,10 +15,10 @@ import android.widget.Toast;
 public class MainActivity extends FragmentActivity {
 	
 	// 定义FragmentTabHost对象
-		private FragmentTabHost mTabHost;
-		private RadioGroup mTabRg;
+	public static FragmentTabHost mTabHost;
+	public static RadioGroup mTabRg;
 
-		private final Class[] fragments = { Fragment1.class, Fragment2.class,
+	public static final Class[] fragments = { Fragment1.class, Fragment2.class,
 				Fragment3.class, Fragment4.class,PersonalCenter.class };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

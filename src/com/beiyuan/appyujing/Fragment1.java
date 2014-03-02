@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class Fragment1 extends Fragment {
+import com.beiyuan.appyujing.view.TitleView;
+import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
+import com.beiyuan.appyujing.view.TitleView.OnRightButtonClickListener;
 
+public class Fragment1 extends Fragment {
+	private TitleView mTitle;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -25,18 +29,10 @@ public class Fragment1 extends Fragment {
 		View parentView = inflater.inflate(R.layout.fragment1, container, false);
 		Button backBtn = (Button)parentView.findViewById(R.id.button1);
 		Button toOtherActivityBtn = (Button)parentView.findViewById(R.id.button2);
-//		backBtn.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				if(mListener!=null)mListener.backEvent();
-//			}
-//		});
-		
+
 		toOtherActivityBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent(getActivity(), OtherActivity1.class);
-//				startActivity(intent);
 				Toast.makeText(getActivity(), "可以点击", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -46,5 +42,28 @@ public class Fragment1 extends Fragment {
 		
 //		return inflater.inflate(R.layout.fragment1, container, false);
 	}
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	
 
+		mTitle = (TitleView) getView().findViewById(R.id.title);
+		mTitle.setTitle("首页");
+		mTitle.setLeftButton("123", new OnLeftButtonClickListener(){
+
+			@Override
+			public void onClick(View button) {
+				Toast.makeText(getActivity(), "可以点击", Toast.LENGTH_SHORT).show();
+			}
+			
+		});
+		mTitle.setRightButton("帮忙", new OnRightButtonClickListener() {
+
+			@Override
+			public void onClick(View button) {
+				Toast.makeText(getActivity(), "可以点击", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+	}
 }

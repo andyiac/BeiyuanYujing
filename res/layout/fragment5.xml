@@ -4,6 +4,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <com.beiyuan.appyujing.view.TitleView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
@@ -28,9 +33,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/shape_bg_listview"
-        android:cacheColorHint="@null"/>
-    
-    
-    
+        android:cacheColorHint="@null" />
 
 </LinearLayout>

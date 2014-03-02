@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.beiyuan.appyujing.view.CornerListView;
+import com.beiyuan.appyujing.view.TitleView;
+import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
+import com.beiyuan.appyujing.view.TitleView.OnRightButtonClickListener;
 
 public class PersonalCenter extends Fragment {
 	private final int REGISTER = 0;// 注册
@@ -23,6 +27,8 @@ public class PersonalCenter extends Fragment {
 
 	private CornerListView mListView = null;
 	ArrayList<HashMap<String, String>> map_list1 = null;
+	
+	private TitleView mTitle;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -97,6 +103,35 @@ public class PersonalCenter extends Fragment {
 			}
 
 		}
+	}
+	
+	/*
+	*顶部菜单栏
+	*/
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	
+
+		mTitle = (TitleView) getView().findViewById(R.id.title);
+		mTitle.setTitle("个人中心");
+		mTitle.setLeftButton("返回", new OnLeftButtonClickListener(){
+
+			@Override
+			public void onClick(View button) {
+				MainActivity.mTabHost.setCurrentTab(0);
+				MainActivity.mTabRg.check(R.id.tab_rb_1);
+			}
+			
+		});
+		mTitle.setRightButton("帮忙", new OnRightButtonClickListener() {
+
+			@Override
+			public void onClick(View button) {
+				Toast.makeText(getActivity(), "可以点击", Toast.LENGTH_SHORT).show();
+			}
+		});
+
 	}
 }
 
