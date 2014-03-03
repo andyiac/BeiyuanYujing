@@ -1,14 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/fragment2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登陆界面"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <com.beiyuan.appyujing.view.TitleView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:orientation="vertical"
+        android:paddingLeft="15dp" 
+        android:paddingRight="15dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="70dip"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="学号/教师号："
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textColor="@color/gray"
+                android:textSize="18dip" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="密码:"
+                android:singleLine="true"
+                android:paddingLeft="5dp"
+                android:password="true"
+                android:textColor="@color/gray"
+                android:textSize="18dip" />
+        </LinearLayout>
+
+
+       <!--  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio_instructor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="辅导员"
+                    android:textColor="@color/gray" />
+
+                <RadioButton
+                    android:id="@+id/radio_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="教师"
+                    android:textColor="@color/gray" />
+
+                <RadioButton
+                    android:id="@+id/radio_student"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="学生"
+                    android:textColor="@color/gray" />
+            </RadioGroup>
+        </LinearLayout> -->
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal" >
+
+            <Button 
+                android:id="@+id/login_bt_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="登录"
+                android:paddingLeft="5dp"
+                android:textColor="#0000FF"
+                android:textSize="18dip" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forget"
+            android:textColor="#0000FF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

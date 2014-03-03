@@ -22,8 +22,10 @@ import com.beiyuan.appyujing.view.TitleView.OnRightButtonClickListener;
 public class PersonalCenter extends Fragment {
 	private final int REGISTER = 0;// 注册
 	private final int LOGIN = 1;// 登录
-	private final int HELP = 2;// 帮助
-	private final int ABOUTUS = 3;//
+	private final int UPDATE = 2;//个人信息查看与修改
+	private final int HELP = 3;// 帮助
+	private final int ABOUTUS = 4;//
+	
 
 	private CornerListView mListView = null;
 	ArrayList<HashMap<String, String>> map_list1 = null;
@@ -64,13 +66,13 @@ public class PersonalCenter extends Fragment {
 	
 		map1.put("item", "注册");
 		map2.put("item", "登录");
-		//map3.put("item", "");
+		map3.put("item", "个人信息");
 		map4.put("item", "帮助");
 		map5.put("item", "关于我们");
 	
 		map_list1.add(map1);
 		map_list1.add(map2);
-		//map_list1.add(map3);
+		map_list1.add(map3);
 		map_list1.add(map4);
 		map_list1.add(map5);
 	
@@ -91,7 +93,10 @@ public class PersonalCenter extends Fragment {
 				intent.setClass(getActivity(), Login.class);
 				startActivity(intent);
 				break;
-
+			case UPDATE:
+				intent.setClass(getActivity(), UpdateInfo.class);
+				startActivity(intent);
+				break;
 			case HELP:
 				intent.setClass(getActivity(), Help.class);
 				startActivity(intent);
