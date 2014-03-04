@@ -10,5 +10,9 @@ public class UpdateInfo extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.updateinfo);
 		
+		
+		
+		
+		//huuyjhu
 	}
 }
