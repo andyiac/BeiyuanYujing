@@ -14,22 +14,6 @@ public class VirtualData {
 		mlists.add(new Institute("经管学院"));
 		mlists.add(new Institute("外国语学院"));
 		mlists.add(new Institute("医学院"));
-		mlists.add(new Institute("信工学院"));
-		mlists.add(new Institute("农林学院"));
-		mlists.add(new Institute("经管学院"));
-		mlists.add(new Institute("外国语学院"));
-		mlists.add(new Institute("医学院"));
-		mlists.add(new Institute("信工学院"));
-		mlists.add(new Institute("农林学院"));
-		mlists.add(new Institute("经管学院"));
-		mlists.add(new Institute("外国语学院"));
-		mlists.add(new Institute("医学院"));
-		mlists.add(new Institute("信工学院"));
-		mlists.add(new Institute("农林学院"));
-		mlists.add(new Institute("经管学院"));
-		mlists.add(new Institute("外国语学院"));
-		mlists.add(new Institute("医学院"));
-		
 		return mlists;
  }
 
