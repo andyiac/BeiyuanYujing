@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class RegisterFinish extends Activity {
@@ -50,14 +49,14 @@ public class RegisterFinish extends Activity {
 
 			@Override
 			public void onClick(View button) {
-				Toast.makeText(getApplication(), "返回", Toast.LENGTH_SHORT)
-						.show();
+				RegisterFinish.this.finish();
 			}
 
 		});
 
 		mTitle.setRightButton("完成", new OnRightButtonClickListener() {
 			public void onClick(View button) {
+			//所有数据上传到服务器
 			}
 
 		});
