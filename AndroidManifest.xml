@@ -26,7 +26,11 @@
         <activity android:name="com.beiyuan.appyujing.AboutUs"></activity>
         <activity android:name="com.beiyuan.appyujing.Register"></activity>
         <activity android:name="com.beiyuan.appyujing.Login"></activity>
+
         <activity android:name="com.beiyuan.appyujing.UpdateInfo"></activity>
+
+        <activity android:name="com.beiyuan.appyujing.RegisterFinish"></activity>
+
     </application>
 
 </manifest>
