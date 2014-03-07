@@ -8,168 +8,42 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    <ScrollView 
-        android:layout_width="fill_parent"
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >"
+        android:orientation="vertical" 
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="1000sp"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <RadioButton
+            android:id="@+id/radio_instructor"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="15dp" >
+            android:layout_margin="30dp"
+            android:text="辅导员"
+            android:textSize="20dp" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="60dip"
-                android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/radio_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:paddingTop="20dp"
+            android:text="教   师"
+            android:textSize="20dp" />
 
-                <EditText
-                    android:id="@+id/user_info_username"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="姓名:"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true"
-                    android:textColor="@color/gray"
-                    android:textSize="18dip" >
-                    <requestFocus />
-                </EditText>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/user_info_usernum"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="身份证号:"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true"
-                    android:textColor="@color/gray"
-                    android:textSize="18dip" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/user_info_userphone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="手机号:"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true"
-                    android:textColor="@color/gray"
-                    android:textSize="18dip" 
-                    android:inputType="number"
-                    android:maxLength="11"
-                   />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/user_info_password"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="输入6——12位密码:"
-                    android:paddingLeft="5dp"
-                    android:password="true"
-                    android:singleLine="true"
-                    android:textColor="@color/gray"
-                    android:textSize="18dip" 
-                    android:minWidth="6dp"
-                    android:maxLength="12"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/user_info_password_sure"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="确认密码:"
-                    android:paddingLeft="5dp"
-                    android:password="true"
-                    android:singleLine="true"
-                    android:textColor="@color/gray"
-                    android:textSize="18dip" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal" >
-
-                <RadioGroup
-                    android:id="@+id/radiogroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:orientation="horizontal" >
-
-                    <RadioButton
-                        android:id="@+id/radio_instructor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="辅导员"
-                        android:textColor="@color/gray" />
-
-                    <RadioButton
-                        android:id="@+id/radio_teacher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="教师"
-                        android:textColor="@color/gray" />
-
-                    <RadioButton
-                        android:id="@+id/radio_student"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="学生"
-                        android:textColor="@color/gray"
-                        android:checked="true" />
-                </RadioGroup>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
+        <RadioButton
+            android:id="@+id/radio_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:checked="true"
+            android:text="学   生"
+            android:textSize="20dp" />
+    </RadioGroup>
 
     <com.beiyuan.appyujing.view.CornerListView
         android:id="@+id/list1"

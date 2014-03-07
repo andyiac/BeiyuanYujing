@@ -66,27 +66,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/sno_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <EditText
-                        android:id="@+id/user_info_userno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/user"
-                        android:hint="学号:"
-                        android:paddingLeft="5dp"
-                        android:singleLine="true"
-                        android:textSize="18dip" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -254,30 +233,6 @@
                         android:id="@+id/register_class"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/teacher_institute_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <EditText
-                        android:id="@+id/teacher_institute"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/user"
-                        android:drawableRight="@drawable/check"
-                        android:editable="false"
-                        android:hint="请选择学院:"
-                        android:paddingLeft="5dp"
-                        android:password="true"
-                        android:singleLine="true"
-                        android:textSize="18dip" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
