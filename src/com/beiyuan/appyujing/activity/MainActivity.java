@@ -1,8 +1,11 @@
-package com.beiyuan.appyujing;
+package com.beiyuan.appyujing.activity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.R.id;
+import com.beiyuan.appyujing.R.layout;
 import com.beiyuan.appyujing.view.Fragment1;
 import com.beiyuan.appyujing.view.Fragment2;
 import com.beiyuan.appyujing.view.Fragment3;
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.KeyEvent;
+import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -29,7 +33,9 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
 		initView();
 	}
 

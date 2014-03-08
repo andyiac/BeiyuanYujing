@@ -1,4 +1,4 @@
-package com.beiyuan.appyujing;
+package com.beiyuan.appyujing.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +14,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.beiyuan.appyujing.view.CornerListView;
-import com.beiyuan.appyujing.view.TitleView;
+import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.R.id;
+import com.beiyuan.appyujing.R.layout;
+import com.beiyuan.appyujing.activity.AboutUs;
+import com.beiyuan.appyujing.activity.Help;
+import com.beiyuan.appyujing.activity.Login;
+import com.beiyuan.appyujing.activity.MainActivity;
+import com.beiyuan.appyujing.activity.Register;
+import com.beiyuan.appyujing.activity.UpdateInfo;
 import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
 import com.beiyuan.appyujing.view.TitleView.OnRightButtonClickListener;
 

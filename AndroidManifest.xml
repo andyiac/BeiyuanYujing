@@ -8,13 +8,15 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.beiyuan.appyujing.MainActivity"
+            android:name="com.beiyuan.appyujing.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,15 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.beiyuan.appyujing.Help"></activity>
-        <activity android:name="com.beiyuan.appyujing.AboutUs"></activity>
-        <activity android:name="com.beiyuan.appyujing.Register"></activity>
-        <activity android:name="com.beiyuan.appyujing.Login"></activity>
-
-        <activity android:name="com.beiyuan.appyujing.UpdateInfo"></activity>
-
-        <activity android:name="com.beiyuan.appyujing.RegisterFinish"></activity>
-
+        <activity android:name="com.beiyuan.appyujing.activity.Help" >
+        </activity>
+        <activity android:name="com.beiyuan.appyujing.activity.AboutUs" >
+        </activity>
+        <activity android:name="com.beiyuan.appyujing.activity.Register" >
+        </activity>
+        <activity android:name="com.beiyuan.appyujing.activity.Login" >
+        </activity>
+        <activity android:name="com.beiyuan.appyujing.activity.UpdateInfo" >
+        </activity>
+        <activity android:name="com.beiyuan.appyujing.activity.RegisterFinish" >
+        </activity>
     </application>
 
 </manifest>

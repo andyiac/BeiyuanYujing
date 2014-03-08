@@ -1,4 +1,4 @@
-package com.beiyuan.appyujing;
+package com.beiyuan.appyujing.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.beiyuan.appyujing.view.TitleView;
+import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.R.id;
+import com.beiyuan.appyujing.R.layout;
 import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
 import com.beiyuan.appyujing.view.TitleView.OnRightButtonClickListener;
 

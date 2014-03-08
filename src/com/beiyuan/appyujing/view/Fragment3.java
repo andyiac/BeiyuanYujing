@@ -1,4 +1,7 @@
-package com.beiyuan.appyujing;
+package com.beiyuan.appyujing.view;
+
+import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
