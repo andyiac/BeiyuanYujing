@@ -14,13 +14,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.beiyuan.appyujing.MainActivity;
 import com.beiyuan.appyujing.R;
 import com.beiyuan.appyujing.R.id;
 import com.beiyuan.appyujing.R.layout;
 import com.beiyuan.appyujing.activity.AboutUs;
 import com.beiyuan.appyujing.activity.Help;
 import com.beiyuan.appyujing.activity.Login;
-import com.beiyuan.appyujing.activity.MainActivity;
 import com.beiyuan.appyujing.activity.Register;
 import com.beiyuan.appyujing.activity.UpdateInfo;
 import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;

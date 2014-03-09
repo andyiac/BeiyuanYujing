@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/white" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
             <ListView
-                android:id="@+id/list_institute"
+                android:id="@+id/college_listview"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 >
