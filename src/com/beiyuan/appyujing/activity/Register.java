@@ -51,7 +51,7 @@ public class Register extends MyActivity {
 					Intent intenta = new Intent(Register.this,
 							RegisterFinish.class);
 					Bundle bundlea = new Bundle();
-					bundlea.putString("flag", "instructor");
+					bundlea.putString("flag", "headteacher");
 					intenta.putExtras(bundlea);
 					Register.this.startActivity(intenta);
 

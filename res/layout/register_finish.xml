@@ -33,7 +33,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_username"
+                        android:id="@+id/student_username"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -55,7 +55,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_usernickname"
+                        android:id="@+id/student_usernickname"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -66,17 +66,17 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/sno_layout"
+                    
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                    >
 
                     <EditText
-                        android:id="@+id/user_info_userno"
+                        android:id="@+id/student_userid"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -95,7 +95,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_usernum"
+                        android:id="@+id/student_usernum"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -116,7 +116,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_useridcard"
+                        android:id="@+id/student_useridcard"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -135,7 +135,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_password"
+                        android:id="@+id/student_password"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -157,7 +157,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_password_sure"
+                        android:id="@+id/student_password_sure"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -169,14 +169,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/institute_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                    >
 
                     <TextView
                         android:layout_width="70dp"
@@ -185,20 +184,19 @@
                         android:textSize="18dip" />
 
                     <Spinner
-                        android:id="@+id/register_institute"
+                        android:id="@+id/student_register_college"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/grade_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                   >
 
                     <TextView
                         android:layout_width="70dp"
@@ -207,20 +205,19 @@
                         android:textSize="18dip" />
 
                     <Spinner
-                        android:id="@+id/register_grade"
+                        android:id="@+id/student_register_grade"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/specialty_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                     >
 
                     <TextView
                         android:layout_width="70dp"
@@ -229,7 +226,7 @@
                         android:textSize="18dip" />
 
                     <Spinner
-                        android:id="@+id/register_specialty"
+                        android:id="@+id/student_register_profession"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -242,7 +239,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal"
-                    android:visibility="gone" >
+                     >
 
                     <TextView
                         android:layout_width="70dp"
@@ -251,33 +248,9 @@
                         android:textSize="18dip" />
 
                     <Spinner
-                        android:id="@+id/register_class"
+                        android:id="@+id/student_register_class"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/teacher_institute_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <EditText
-                        android:id="@+id/teacher_institute"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/user"
-                        android:drawableRight="@drawable/check"
-                        android:editable="false"
-                        android:hint="请选择学院:"
-                        android:paddingLeft="5dp"
-                        android:password="true"
-                        android:singleLine="true"
-                        android:textSize="18dip" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

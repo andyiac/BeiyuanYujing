@@ -9,11 +9,11 @@ public class Grade {
 			this.gradeName = name;
 		}
 
-		public String getInstituteName() {
+		public String getGradeName() {
 			return gradeName;
 		}
 
-		public void setInstituteName(String gradeName) {
+		public void setGradeName(String gradeName) {
 			this.gradeName = gradeName;
 		}
 

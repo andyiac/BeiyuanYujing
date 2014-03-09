@@ -33,7 +33,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_username"
+                        android:id="@+id/teacher_username"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -55,7 +55,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_usernickname"
+                        android:id="@+id/teacher_nickname"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -74,7 +74,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_usernum"
+                        android:id="@+id/teacher_usernum"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -95,7 +95,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_useridcard"
+                        android:id="@+id/teacher_useridcard"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -114,7 +114,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_password"
+                        android:id="@+id/teacher_password"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -136,7 +136,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/user_info_password_sure"
+                        android:id="@+id/teacher_password_sure"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/user"
@@ -147,8 +147,8 @@
                         android:textSize="18dip" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/institute_layout"
+               <LinearLayout
+                    android:id="@+id/teacher_college_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -157,83 +157,19 @@
                     android:orientation="horizontal"
                     android:visibility="gone" >
 
-                    <TextView
-                        android:layout_width="70dp"
+                    <EditText
+                        android:id="@+id/teacher_register_college"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="学院:"
+                        android:drawableLeft="@drawable/user"
+                        android:drawableRight="@drawable/check"
+                        android:editable="false"
+                        android:hint="请选择学院:"
+                        android:paddingLeft="5dp"
+                        android:password="true"
+                        android:singleLine="true"
                         android:textSize="18dip" />
-
-                    <Spinner
-                        android:id="@+id/register_institute"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/grade_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="年级:"
-                        android:textSize="18dip" />
-
-                    <Spinner
-                        android:id="@+id/register_grade"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/specialty_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="专业:"
-                        android:textSize="18dip" />
-
-                    <Spinner
-                        android:id="@+id/register_specialty"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/class_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="班级:"
-                        android:textSize="18dip" />
-
-                    <Spinner
-                        android:id="@+id/register_class"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+            </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
