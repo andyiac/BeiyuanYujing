@@ -74,6 +74,9 @@ public class Register extends MyActivity {
 			}
 		});
 
+		
+		
+		
 	}
 
 }
