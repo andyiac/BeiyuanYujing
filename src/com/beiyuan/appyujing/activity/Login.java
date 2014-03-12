@@ -78,6 +78,10 @@ public class Login extends MyActivity {
 //					startActivity(intent);
 //					finish();
 
+					
+					
+					
+					
 					break;
 
 				case -1:
