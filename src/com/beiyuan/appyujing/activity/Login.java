@@ -81,7 +81,11 @@ public class Login extends MyActivity {
 					break;
 
 				case -1:
-					Toast.makeText(Login.this, "请输入正确的用户名和密码",
+					Toast.makeText(Login.this, "用户名无效",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case 2:
+					Toast.makeText(Login.this, "密码错误",
 							Toast.LENGTH_SHORT).show();
 					break;
 				}
@@ -135,10 +139,10 @@ public class Login extends MyActivity {
 								System.out.println("strLoginRst======"
 										+ strLoginRst);
 
-								System.out.println("观察饭返回值是不是布尔型的========"
-										+ strLoginRst.equals("success"));
+//								System.out.println("观察饭返回值是不是布尔型的========"
+//										+ strLoginRst.equals("success"));
 
-								if (strLoginRst.equals("{message=success}")) {
+								if (strLoginRst.equals("{\"success\":\"success\"}")) {
 
 									Message message = new Message();
 									message.what = 1;
@@ -146,26 +150,34 @@ public class Login extends MyActivity {
 									pdlogin.dismiss();
 
 								} else if (strLoginRst
-										.endsWith("{message=fail}")) {
+										.equals("{\"NotHaveUser\":\"NotHaveUser\"}")) {
 									Message message = new Message();
 									message.what = -1;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
+								}else if (strLoginRst
+										.equals("{\"PasswordError\":\"PasswordError\"}")) {
+									Message message = new Message();
+									message.what = 2;
+									handler.sendMessage(message);
+									pdlogin.dismiss();
+
 								} else {
-									Toast.makeText(Login.this, "有问题了", 1)
-											.show();
+									Tools.mToast(Login.this, "有问题了");
+									pdlogin.dismiss();
 								}
 							}
 						});
 						threadLogin.start();
 
 					} catch (Exception e) {
-						e.printStackTrace();
+						
 
 						Toast.makeText(Login.this, "连接服务器失败···",
 								Toast.LENGTH_SHORT).show();
 						pdlogin.dismiss();
+						e.printStackTrace();
 					}
 //					if (true) {
 //
