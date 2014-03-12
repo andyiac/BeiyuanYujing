@@ -40,7 +40,9 @@ public class Login extends MyActivity {
 	List<String> paramsValue;
 	String strLoginRst;
 	private UrlService urlService = new UrlServiceImpl();
-	Handler handler;
+	Handler handler;  
+	
+	
 	// private RadioGroup rg_status;
 	// private RadioButton rb_instructor,rb_teacher,rb_student;
 	@Override
