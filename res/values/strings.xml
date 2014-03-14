@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="personalcenter">个人中心</string>
     <string name="forget"><u>忘记密码？</u></string>
-
+    <string name="un_revise">不可修改信息</string>
+    <string name="revise">可修改信息</string>
 </resources>
