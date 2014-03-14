@@ -3,6 +3,9 @@ package com.beiyuan.appyujing.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,17 +39,18 @@ public class Login extends MyActivity {
 	private SharedPreferences preferences;
 	private Button bt_login;
 	String username;
-	String password ;
+	String password;
 
-	
 	private ProgressDialog pdlogin;
 	List<String> paramsKey;
 	List<String> paramsValue;
-	String strLoginRst;
+	JSONObject jsonLoginRst;
 	private UrlService urlService = new UrlServiceImpl();
 	Handler handler;
-	// private RadioGroup rg_status;
-	// private RadioButton rb_instructor,rb_teacher,rb_student;
+
+	JSONObject obj;
+	String strLoginRst;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,30 +83,25 @@ public class Login extends MyActivity {
 					editor.putString("name", username);
 					editor.putString("pswd", password);
 					editor.commit();
-					
-					
-//					Intent intent = new Intent();
-//					intent.setClass(Login.this, AboutUs.class);
-//					startActivity(intent);
-//					finish();
 
-					
-					
-					
-					
+					// Intent intent = new Intent();
+					// intent.setClass(Login.this, AboutUs.class);
+					// startActivity(intent);
+					// finish();
+
 					break;
 
 				case -1:
-					Toast.makeText(Login.this, "用户名无效",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(Login.this, "用户名无效", Toast.LENGTH_SHORT)
+							.show();
 					break;
 				case 2:
-					Toast.makeText(Login.this, "密码错误",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(Login.this, "密码错误", Toast.LENGTH_SHORT)
+							.show();
 					break;
 				case 5:
-					Toast.makeText(Login.this, "连接服务器失败",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(Login.this, "连接服务器失败", Toast.LENGTH_SHORT)
+							.show();
 					break;
 				}
 			}
@@ -120,21 +119,17 @@ public class Login extends MyActivity {
 				if (password.equals(null) || password == "") {
 					Tools.mToast(Login.this, "用户名或密码不能为空");
 				} else if (password.length() < 6) {
-					Tools.mToast(Login.this, "密码不能少于6个字符");			
+					Tools.mToast(Login.this, "密码不能少于6个字符");
 				} else {
 
 					pdlogin = Tools.pd(Login.this);
+					obj = new JSONObject();
 					try {
 						// 从这里将开始连接服务器
-						paramsKey = new ArrayList<String>();
-						paramsValue = new ArrayList<String>();
-						// 和服务端对应的属性有服务端Action接收
-						paramsKey.add("password");
-						paramsKey.add("userName");
-						// key相应的值
-						paramsValue.add(password);
-						paramsValue.add(username);
 
+						obj.put("role", "老师");
+						obj.put("password", password);
+						obj.put("username", username);
 						System.out.println("password============" + password);
 
 						System.out.println("u_name============" + username);
@@ -149,38 +144,41 @@ public class Login extends MyActivity {
 
 								// strLoginRst = "success";
 
-								strLoginRst = urlService.sentParams2Server(
-										paramsKey, paramsValue);
+								jsonLoginRst = urlService
+										.sentParams2Server(obj);
 
-								System.out.println("strLoginRst======"
-										+ strLoginRst);
-								Log.i("JSON", "strLoginRst"+strLoginRst);
-//								System.out.println("观察饭返回值是不是布尔型的========"
-//										+ strLoginRst.equals("success"));
+								System.out.println("jsonLoginRst======"
+										+ jsonLoginRst);
+								Log.i("JSON", "jsonLoginRst" + jsonLoginRst);
 
-								if (strLoginRst.equals(null)) {
-
-									Log.i("JSON", "连接失败");
+								System.out.println("json = "
+										+ jsonLoginRst.toString());
+								try {
+									strLoginRst = jsonLoginRst
+											.getString("Status");
+								} catch (JSONException e) {
+									e.printStackTrace();
 									Message message = new Message();
 									message.what = 5;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
-								}else if (strLoginRst.equals("{\"Status\":\"Success\"}")) {
-									
+									return;
+								}
+
+								if (strLoginRst.equals("Success")) {
+
 									Message message = new Message();
 									message.what = 1;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
-								} else if (strLoginRst
-										.equals("{\"Status\":\"NotHaveUser\"}")) {
+								} else if (strLoginRst.equals("NotHaveUser")) {
 									Message message = new Message();
 									message.what = -1;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
-								}else if (strLoginRst
-										.equals("{\"Status\":\"PasswordError\"}")) {
+								} else if (strLoginRst.equals("PasswordError")) {
 									Message message = new Message();
 									message.what = 2;
 									handler.sendMessage(message);
@@ -191,31 +189,18 @@ public class Login extends MyActivity {
 									message.what = 5;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
-//									Tools.mToast(Login.this, "有问题了");
-//									pdlogin.dismiss();
 								}
 							}
 						});
 						threadLogin.start();
 
 					} catch (Exception e) {
-						
 
 						Toast.makeText(Login.this, "连接服务器失败···",
 								Toast.LENGTH_SHORT).show();
 						pdlogin.dismiss();
 						e.printStackTrace();
 					}
-//					if (true) {
-//
-//						Editor editor = preferences.edit();
-//						editor.putString("name", username);
-//						editor.putString("pswd", password);
-//						editor.commit();
-//					} else {
-//						// 登录失败
-//						Tools.mToast(Login.this, "用户名或密码有误");
-//					}
 				}
 
 			}

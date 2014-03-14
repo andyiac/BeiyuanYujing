@@ -1,18 +1,15 @@
 package com.beiyuan.appyujing.service;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -26,7 +23,6 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -34,53 +30,27 @@ import android.util.Log;
 public class UrlServiceImpl implements UrlService {
 	private static final String TAG = "UrlServiceImpl";
 
- String IP="172.18.69.24:8080";
-//	String IP="211.82.193.9:8080";
-//=======
-//	String IP="211.82.193.98:8080";
-//>>>>>>> origin/shaolijuan_3.12.1
+	String IP = "172.18.69.24:8080";
+
+	// String IP="211.82.193.9:8080";
+	// =======
+	// String IP="211.82.193.98:8080";
+	// >>>>>>> origin/shaolijuan_3.12.1
 	// -----------------
 	/*
 	 * 方法的优化参数封装多少参数都能用
 	 */
 	@Override
-	public String sentParams2Server(List<String> paramsKey,
-			List<String> paramsValue) {
+	public JSONObject sentParams2Server(JSONObject obj) {
 
+		String uriAPI = "http://" + IP + "/JWGL_Server_1/LoginServlet";
 
-		String uriAPI = "http://"+IP+"/JWGL_Server_1/LoginServlet";
-//		String uriAPI = "http://"+IP+"/school5/register.html";
-//		
+		// String strResult = "FAIL";
 
-		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-
-		for (int i = 0; i < paramsKey.size(); i++) {
-
-			params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
-					.get(i)));// 返回JSon数据
-			System.out.println("params===="+params.get(i).getValue());
-		}
-		String strResult = "FAIL";
-
-		JSONObject obj = new JSONObject();
-		
-		
-		try {
-			obj.put("role", "老师");
-			obj.put("password", params.get(1).getValue());
-			obj.put("username", params.get(0).getValue());
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return strResult;
-		}
-		
-//		HttpEntity entity = HttpUtils.getHttpEntity(
-//				"http://172.18.69.34:8080/school5/loginCheck.html", 2, obj);
 		Log.i("JSON", obj.toString());
-		HttpEntity entity = HttpUtils.getHttpEntity(
-				uriAPI, 2, obj);
-		 
+		HttpEntity entity = HttpUtils.getHttpEntity(uriAPI, 2, obj);
+		JSONObject jo2 = new JSONObject();
+		Log.i("JSON", jo2.toString());
 		InputStream in = HttpUtils.getInputStream(entity);
 		if (in != null) {
 			try {
@@ -91,21 +61,20 @@ public class UrlServiceImpl implements UrlService {
 				while ((s = br.readLine()) != null) {
 					sb.append(s);
 				}
-				JSONObject jo2 = new JSONObject(sb.toString());
+				jo2 = new JSONObject(sb.toString());
 				Log.i("JSON", jo2.toString());
-				return jo2.toString();
-				// Message msg = Message.obtain(handler, 1,
-				// jo2.getBoolean("isExit"));
-				// msg.sendToTarget();
+				return jo2;
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-
-		return strResult;
+		Log.i("JSON", jo2.toString());
+		return jo2;
 
 	}
+
 	// -----------------
 	/*
 	 * 方法的优化参数封装多少参数都能用
@@ -114,10 +83,10 @@ public class UrlServiceImpl implements UrlService {
 	public String sentParams2RegisterServer(List<String> paramsKey,
 			List<String> paramsValue) {
 		System.out.println("用于注册");
-		//String uriAPI = "http://"+IP+"/LoginDemo/login.action";
-		String uriAPI = "http://"+IP+"/LoginDemo/register.action";
+		// String uriAPI = "http://"+IP+"/LoginDemo/login.action";
+		String uriAPI = "http://" + IP + "/LoginDemo/register.action";
 		// String uriAPI =
-		
+
 		/* 建立HTTPost对象 */
 		HttpPost httpRequest = new HttpPost(uriAPI);
 		HttpClient client = new DefaultHttpClient();
@@ -168,9 +137,9 @@ public class UrlServiceImpl implements UrlService {
 	public String sentParams2Complete(List<String> paramsKey,
 			List<String> paramsValue) {
 		System.out.println("用于完善信息");
-		String uriAPI = "http://"+IP+"/LoginDemo/complete.action";
+		String uriAPI = "http://" + IP + "/LoginDemo/complete.action";
 		// String uriAPI =
-		
+
 		/* 建立HTTPost对象 */
 		HttpPost httpRequest = new HttpPost(uriAPI);
 		HttpClient client = new DefaultHttpClient();
@@ -216,145 +185,143 @@ public class UrlServiceImpl implements UrlService {
 		}
 		return strResult;
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> getListMaps(String key, String jsonString) {
-		// TODO Auto-generated method stub  
-		        List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();  
-		        try {  
-		            JSONObject jsonObject = new JSONObject(jsonString);  
-		            JSONArray jsonArray = jsonObject.getJSONArray(key);  
-		            for(int i = 0; i < jsonArray.length(); i++){  
-		                JSONObject jsonObject2 = jsonArray.getJSONObject(i);  
-		                Map<String, Object> map = new HashMap<String, Object>();  
-		                // 通过org.json中的迭代器来取Map中的值。  
-		                Iterator<String> iterator = jsonObject2.keys();  
-		                while(iterator.hasNext()) {  
-		                    String jsonKey = iterator.next();  
-		                    Object jsonValue = jsonObject2.get(jsonKey);  
-		                    //JSON的值是可以为空的，所以我们也需要对JSON的空值可能性进行判断。  
-		                    if(jsonValue == null){  
-		                        jsonValue = "";  
-		                    }  
-		                    map.put(jsonKey, jsonValue);  
-		                }  
-		                listMap.add(map);  
-		            }  
-		        } catch (Exception e) {  
-		            // TODO: handle exception  
-		        }  
-		        return listMap;  
-		    }       
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		try {
+			JSONObject jsonObject = new JSONObject(jsonString);
+			JSONArray jsonArray = jsonObject.getJSONArray(key);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+				Map<String, Object> map = new HashMap<String, Object>();
+				// 通过org.json中的迭代器来取Map中的值。
+				Iterator<String> iterator = jsonObject2.keys();
+				while (iterator.hasNext()) {
+					String jsonKey = iterator.next();
+					Object jsonValue = jsonObject2.get(jsonKey);
+					// JSON的值是可以为空的，所以我们也需要对JSON的空值可能性进行判断。
+					if (jsonValue == null) {
+						jsonValue = "";
+					}
+					map.put(jsonKey, jsonValue);
+				}
+				listMap.add(map);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listMap;
 	}
-	
-	
-	
-//	//发布信息
-//	@Override
-//	public String sentParams2Release_sell(List<String> paramsKey,
-//			List<String> paramsValue) {
-//		System.out.println("用于完善信息");
-//		String uriAPI = "http://"+IP+"/LoginDemo/sellRelease.action";
-//		// String uriAPI =
-//		
-//		/* 建立HTTPost对象 */
-//		HttpPost httpRequest = new HttpPost(uriAPI);
-//		HttpClient client = new DefaultHttpClient();
-//		/*
-//		 * NameValuePair实现请求参数的封装
-//		 */
-//		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-//		for (int i = 0; i < paramsKey.size(); i++) {
+}
+
+// //发布信息
+// @Override
+// public String sentParams2Release_sell(List<String> paramsKey,
+// List<String> paramsValue) {
+// System.out.println("用于完善信息");
+// String uriAPI = "http://"+IP+"/LoginDemo/sellRelease.action";
+// // String uriAPI =
 //
-//			params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
-//					.get(i)));// 返回JSon数据
+// /* 建立HTTPost对象 */
+// HttpPost httpRequest = new HttpPost(uriAPI);
+// HttpClient client = new DefaultHttpClient();
+// /*
+// * NameValuePair实现请求参数的封装
+// */
+// List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+// for (int i = 0; i < paramsKey.size(); i++) {
 //
-//		}
+// params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
+// .get(i)));// 返回JSon数据
 //
-//		String strResult = null;
-//		try {
+// }
 //
-//			/* 添加请求参数到请求对象 */
-//			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-//			/* 处理超时 */
-//			client.getParams().setParameter(
-//					CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
-//			/* 发送请求并等待响应 */
-//			HttpResponse httpResponse = client.execute(httpRequest);
-//			/* 若状态码为200 ok */
-//			System.out.println(httpResponse.getStatusLine().getStatusCode());
-//			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-//				/* 读返回数据 去掉两头不要的参数 */
-//				strResult = EntityUtils.toString(httpResponse.getEntity());
-//			} else {
-//				System.err.println("Error Response: "
-//						+ httpResponse.getStatusLine().toString());
-//				strResult = null;
-//			}
-//		} catch (ClientProtocolException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
+// String strResult = null;
+// try {
 //
-//			e.printStackTrace();
-//		} catch (Exception e) {
+// /* 添加请求参数到请求对象 */
+// httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+// /* 处理超时 */
+// client.getParams().setParameter(
+// CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
+// /* 发送请求并等待响应 */
+// HttpResponse httpResponse = client.execute(httpRequest);
+// /* 若状态码为200 ok */
+// System.out.println(httpResponse.getStatusLine().getStatusCode());
+// if (httpResponse.getStatusLine().getStatusCode() == 200) {
+// /* 读返回数据 去掉两头不要的参数 */
+// strResult = EntityUtils.toString(httpResponse.getEntity());
+// } else {
+// System.err.println("Error Response: "
+// + httpResponse.getStatusLine().toString());
+// strResult = null;
+// }
+// } catch (ClientProtocolException e) {
+// e.printStackTrace();
+// } catch (IOException e) {
 //
-//			e.printStackTrace();
-//		}
-//		return strResult;
-//	}
-//	
-//	
-//	
-//	@Override
-//	public String sentParams2Release_buy(List<String> paramsKey,
-//			List<String> paramsValue) {
-//		System.out.println("用于完善信息");
-//		String uriAPI = "http://"+IP+"/LoginDemo/buyRelease.action";
-//		// String uriAPI =
-//		
-//		/* 建立HTTPost对象 */
-//		HttpPost httpRequest = new HttpPost(uriAPI);
-//		HttpClient client = new DefaultHttpClient();
-//		/*
-//		 * NameValuePair实现请求参数的封装
-//		 */
-//		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-//		for (int i = 0; i < paramsKey.size(); i++) {
+// e.printStackTrace();
+// } catch (Exception e) {
 //
-//			params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
-//					.get(i)));// 返回JSon数据
+// e.printStackTrace();
+// }
+// return strResult;
+// }
 //
-//		}
 //
-//		String strResult = null;
-//		try {
 //
-//			/* 添加请求参数到请求对象 */
-//			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-//			/* 处理超时 */
-//			client.getParams().setParameter(
-//					CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
-//			/* 发送请求并等待响应 */
-//			HttpResponse httpResponse = client.execute(httpRequest);
-//			/* 若状态码为200 ok */
-//			System.out.println(httpResponse.getStatusLine().getStatusCode());
-//			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-//				/* 读返回数据 去掉两头不要的参数 */
-//				strResult = EntityUtils.toString(httpResponse.getEntity());
-//			} else {
-//				System.err.println("Error Response: "
-//						+ httpResponse.getStatusLine().toString());
-//				strResult = null;
-//			}
-//		} catch (ClientProtocolException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
+// @Override
+// public String sentParams2Release_buy(List<String> paramsKey,
+// List<String> paramsValue) {
+// System.out.println("用于完善信息");
+// String uriAPI = "http://"+IP+"/LoginDemo/buyRelease.action";
+// // String uriAPI =
 //
-//			e.printStackTrace();
-//		} catch (Exception e) {
+// /* 建立HTTPost对象 */
+// HttpPost httpRequest = new HttpPost(uriAPI);
+// HttpClient client = new DefaultHttpClient();
+// /*
+// * NameValuePair实现请求参数的封装
+// */
+// List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+// for (int i = 0; i < paramsKey.size(); i++) {
 //
-//			e.printStackTrace();
-//		}
-//		return strResult;
-//	}
+// params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
+// .get(i)));// 返回JSon数据
+//
+// }
+//
+// String strResult = null;
+// try {
+//
+// /* 添加请求参数到请求对象 */
+// httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+// /* 处理超时 */
+// client.getParams().setParameter(
+// CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
+// /* 发送请求并等待响应 */
+// HttpResponse httpResponse = client.execute(httpRequest);
+// /* 若状态码为200 ok */
+// System.out.println(httpResponse.getStatusLine().getStatusCode());
+// if (httpResponse.getStatusLine().getStatusCode() == 200) {
+// /* 读返回数据 去掉两头不要的参数 */
+// strResult = EntityUtils.toString(httpResponse.getEntity());
+// } else {
+// System.err.println("Error Response: "
+// + httpResponse.getStatusLine().toString());
+// strResult = null;
+// }
+// } catch (ClientProtocolException e) {
+// e.printStackTrace();
+// } catch (IOException e) {
+//
+// e.printStackTrace();
+// } catch (Exception e) {
+//
+// e.printStackTrace();
+// }
+// return strResult;
+// }
 
