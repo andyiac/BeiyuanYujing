@@ -5,6 +5,8 @@ import java.util.List;
 
 
 public class VirtualData {
+	
+	
 
 	public List<College> getCollegeInfo() {
 		// TODO Auto-generated method stub

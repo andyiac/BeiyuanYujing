@@ -9,8 +9,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,6 +25,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,8 +34,11 @@ import android.util.Log;
 public class UrlServiceImpl implements UrlService {
 	private static final String TAG = "UrlServiceImpl";
 
-//	String IP="172.18.69.24:8080";
-	String IP="211.82.193.9:8080";
+ String IP="172.18.69.24:8080";
+//	String IP="211.82.193.9:8080";
+//=======
+//	String IP="211.82.193.98:8080";
+//>>>>>>> origin/shaolijuan_3.12.1
 	// -----------------
 	/*
 	 * 方法的优化参数封装多少参数都能用
@@ -42,8 +48,8 @@ public class UrlServiceImpl implements UrlService {
 			List<String> paramsValue) {
 
 
-//		String uriAPI = "http://"+IP+"/JWGL_Server_1/LoginServlet";
-		String uriAPI = "http://"+IP+"/school5/register.html";
+		String uriAPI = "http://"+IP+"/JWGL_Server_1/LoginServlet";
+//		String uriAPI = "http://"+IP+"/school5/register.html";
 //		
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -211,6 +217,37 @@ public class UrlServiceImpl implements UrlService {
 		return strResult;
 	}
 	
+	@Override
+	public List<Map<String, Object>> getListMaps(String key, String jsonString) {
+		// TODO Auto-generated method stub  
+		        List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();  
+		        try {  
+		            JSONObject jsonObject = new JSONObject(jsonString);  
+		            JSONArray jsonArray = jsonObject.getJSONArray(key);  
+		            for(int i = 0; i < jsonArray.length(); i++){  
+		                JSONObject jsonObject2 = jsonArray.getJSONObject(i);  
+		                Map<String, Object> map = new HashMap<String, Object>();  
+		                // 通过org.json中的迭代器来取Map中的值。  
+		                Iterator<String> iterator = jsonObject2.keys();  
+		                while(iterator.hasNext()) {  
+		                    String jsonKey = iterator.next();  
+		                    Object jsonValue = jsonObject2.get(jsonKey);  
+		                    //JSON的值是可以为空的，所以我们也需要对JSON的空值可能性进行判断。  
+		                    if(jsonValue == null){  
+		                        jsonValue = "";  
+		                    }  
+		                    map.put(jsonKey, jsonValue);  
+		                }  
+		                listMap.add(map);  
+		            }  
+		        } catch (Exception e) {  
+		            // TODO: handle exception  
+		        }  
+		        return listMap;  
+		    }       
+	}
+	
+	
 	
 //	//发布信息
 //	@Override
@@ -320,4 +357,4 @@ public class UrlServiceImpl implements UrlService {
 //		}
 //		return strResult;
 //	}
-}
+
