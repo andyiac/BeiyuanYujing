@@ -7,10 +7,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,7 +35,9 @@ public class Login extends MyActivity {
 	private EditText et_username, et_password;
 	private SharedPreferences preferences;
 	private Button bt_login;
-	
+	String username;
+	String password ;
+
 	
 	private ProgressDialog pdlogin;
 	List<String> paramsKey;
@@ -54,8 +58,8 @@ public class Login extends MyActivity {
 
 		preferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
 
-		String username = preferences.getString("name", "").trim();
-		String password = preferences.getString("pswd", "").trim();
+		username = preferences.getString("name", "").trim();
+		password = preferences.getString("pswd", "").trim();
 		et_username.setText(username);
 		et_password.setText(password);
 
@@ -71,8 +75,12 @@ public class Login extends MyActivity {
 				case 1:
 					Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT)
 							.show();
-//					remember(); // 登录成功，则保存登陆数据
-
+					Editor editor = preferences.edit();
+					editor.putString("name", username);
+					editor.putString("pswd", password);
+					editor.commit();
+					
+					
 //					Intent intent = new Intent();
 //					intent.setClass(Login.this, AboutUs.class);
 //					startActivity(intent);
@@ -92,6 +100,10 @@ public class Login extends MyActivity {
 					Toast.makeText(Login.this, "密码错误",
 							Toast.LENGTH_SHORT).show();
 					break;
+				case 5:
+					Toast.makeText(Login.this, "连接服务器失败",
+							Toast.LENGTH_SHORT).show();
+					break;
 				}
 			}
 		};
@@ -102,8 +114,8 @@ public class Login extends MyActivity {
 		bt_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				String username = et_username.getText().toString().trim();
-				String password = et_password.getText().toString().trim();
+				username = et_username.getText().toString().trim();
+				password = et_password.getText().toString().trim();
 
 				if (password.equals(null) || password == "") {
 					Tools.mToast(Login.this, "用户名或密码不能为空");
@@ -142,34 +154,45 @@ public class Login extends MyActivity {
 
 								System.out.println("strLoginRst======"
 										+ strLoginRst);
-
+								Log.i("JSON", "strLoginRst"+strLoginRst);
 //								System.out.println("观察饭返回值是不是布尔型的========"
 //										+ strLoginRst.equals("success"));
 
-								if (strLoginRst.equals("{\"success\":\"success\"}")) {
+								if (strLoginRst.equals(null)) {
 
+									Log.i("JSON", "连接失败");
+									Message message = new Message();
+									message.what = 5;
+									handler.sendMessage(message);
+									pdlogin.dismiss();
+								}else if (strLoginRst.equals("{\"Status\":\"Success\"}")) {
+									
 									Message message = new Message();
 									message.what = 1;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
 								} else if (strLoginRst
-										.equals("{\"NotHaveUser\":\"NotHaveUser\"}")) {
+										.equals("{\"Status\":\"NotHaveUser\"}")) {
 									Message message = new Message();
 									message.what = -1;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
 								}else if (strLoginRst
-										.equals("{\"PasswordError\":\"PasswordError\"}")) {
+										.equals("{\"Status\":\"PasswordError\"}")) {
 									Message message = new Message();
 									message.what = 2;
 									handler.sendMessage(message);
 									pdlogin.dismiss();
 
 								} else {
-									Tools.mToast(Login.this, "有问题了");
+									Message message = new Message();
+									message.what = 5;
+									handler.sendMessage(message);
 									pdlogin.dismiss();
+//									Tools.mToast(Login.this, "有问题了");
+//									pdlogin.dismiss();
 								}
 							}
 						});

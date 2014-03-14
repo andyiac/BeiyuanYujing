@@ -31,7 +31,8 @@ import android.util.Log;
 public class UrlServiceImpl implements UrlService {
 	private static final String TAG = "UrlServiceImpl";
 
-	String IP="172.18.69.24:8080";
+//	String IP="172.18.69.24:8080";
+	String IP="211.82.193.9:8080";
 	// -----------------
 	/*
 	 * 方法的优化参数封装多少参数都能用
@@ -41,7 +42,8 @@ public class UrlServiceImpl implements UrlService {
 			List<String> paramsValue) {
 
 
-		String uriAPI = "http://"+IP+"/JWGL_Server_1/LoginServlet";
+//		String uriAPI = "http://"+IP+"/JWGL_Server_1/LoginServlet";
+		String uriAPI = "http://"+IP+"/school5/register.html";
 //		
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -52,7 +54,7 @@ public class UrlServiceImpl implements UrlService {
 					.get(i)));// 返回JSon数据
 			System.out.println("params===="+params.get(i).getValue());
 		}
-		String strResult = null;
+		String strResult = "FAIL";
 
 		JSONObject obj = new JSONObject();
 		
