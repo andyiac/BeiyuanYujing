@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +25,9 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.service.UrlService;
+import com.beiyuan.appyujing.service.UrlServiceImpl;
+import com.beiyuan.appyujing.tools.Tools;
 import com.beiyuan.appyujing.view.CornerListView;
 import com.beiyuan.appyujing.view.TitleView;
 import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
@@ -39,7 +48,19 @@ public class UpdateInfo extends MyActivity{
 	ArrayList<HashMap<String, String>> map_list1 = null;
 	ArrayList<HashMap<String, String>> map_list2 = null;
 	ArrayList<HashMap<String, String>> map_list3 = null;
+	String number;
+	String password;
 	
+	//网络传输数据变量
+	ArrayList<String> phoneKey;
+	ArrayList<String> phoneValue;
+	String strLoginRst;
+	private UrlService urlService = new UrlServiceImpl();
+	Handler handler;
+	private ProgressDialog pdlogin;
+	SharedPreferences sp1;
+	SharedPreferences sp2;
+	SimpleAdapter adapter3;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +80,7 @@ public class UpdateInfo extends MyActivity{
 		SimpleAdapter adapter2 = new SimpleAdapter(this, map_list2,
 				R.layout.updateinfo_llist_item, new String[] { "user_id" ,"user_name"},
 				new int[] { R.id.user_id ,R.id.user_name });
-		SimpleAdapter adapter3 = new SimpleAdapter(this, map_list3,
+		adapter3 = new SimpleAdapter(this, map_list3,
 				R.layout.updateinfo_simple_list_item, new String[] { "user_id" ,"user_name"},
 				new int[] { R.id.user_id ,R.id.user_name });
 		
@@ -72,6 +93,9 @@ public class UpdateInfo extends MyActivity{
 		mListView1.setAdapter(adapter1);
 		mListView2.setAdapter(adapter2);
 		mListView3.setAdapter(adapter3);
+		mListView1.setEnabled(false);
+		mListView2.setEnabled(false);
+		
 		setListViewHeightBasedOnChildren(mListView1);
 		setListViewHeightBasedOnChildren(mListView2);
 		setListViewHeightBasedOnChildren(mListView3);
@@ -148,6 +172,7 @@ public class UpdateInfo extends MyActivity{
 			map3.put("user_name","手机号");
 			map3.put("user_id", "15369302550");
 		    map4.put("user_name", "密码");
+		    map4.put("user_id","******");
 	
 			map_list3.add(map1);
 			map_list3.add(map2);
@@ -196,7 +221,7 @@ public class UpdateInfo extends MyActivity{
 		
 
 		// @Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
 				long arg3) {
 //			Intent intent = new Intent();
 			switch (arg2) {
@@ -214,16 +239,23 @@ public class UpdateInfo extends MyActivity{
 					
 					@Override
 					public void onClick(View v) {
-						String number = edit1.getText().toString();
+						number = edit1.getText().toString();
 						String phoneNumber = "15369302550"; 
 						int num = number.length();
+//						HashMap<String, String> map1 = new HashMap<String, String>();
 						
 						if( number.equals("")|| num != 11||number.equals(phoneNumber)){
 							Toast.makeText(UpdateInfo.this, "请输入新的11位手机号", Toast.LENGTH_SHORT).show();
 						}
 						else{
+//					map1.put("user_id",number);
 					Toast.makeText(UpdateInfo.this, "修改成功", Toast.LENGTH_SHORT).show();
+										map_list3.get(arg2).put("user_id",number);
+					adapter3.notifyDataSetChanged();
+					
 					reviseAlertDialog1.dismiss();
+					
+					
 					}
 						
 					}
@@ -265,7 +297,7 @@ public class UpdateInfo extends MyActivity{
                 	
 					@Override
 					public void onClick(View v) {
-						String password = edit2.getText().toString();
+						password = edit2.getText().toString();
 						String pass = edit3.getText().toString();
 						String m_password = edit4.getText().toString();
 						int passnum = password.length();
@@ -336,8 +368,109 @@ public class UpdateInfo extends MyActivity{
 			
 			@Override
 			public void onClick(View button) {
-			
-			Toast.makeText(UpdateInfo.this, "修改成功", Toast.LENGTH_SHORT).show();	
+				
+				//输出测试
+				
+				System.out.println("password =" + password);
+				System.out.println("number = " + number);
+				transPhonenumber();
+				transPassword();
+				
+				
+				
+			}
+
+			private void transPassword() {
+				pdlogin = Tools.pd(UpdateInfo.this);
+				
+				try{// 从这里将开始连接服务器
+					phoneKey = new ArrayList<String>();
+					phoneValue = new ArrayList<String>();
+					// 和服务端对应的属性有服务端Action接收
+					phoneKey.add("userid");
+					phoneKey.add("username");
+					// key相应的值
+					phoneValue.add("密码");
+					phoneValue.add(password);
+//
+//					System.out.println("password============" + password);
+//
+//					System.out.println("u_name============" + number);
+
+					// 登陆连接服务器，开辟新的线程
+					Thread threadUpdateInfo = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Looper.prepare();
+
+							// strLoginRst = "success";
+
+//							strLoginRst = urlService.sentParams2Server(
+//									phoneKey, phoneValue);
+
+							System.out.println("strLoginRst======"
+									+ strLoginRst);
+							Log.i("JSON", "strLoginRst"+strLoginRst);
+//							System.out.println("观察饭返回值是不是布尔型的========"
+//									+ strLoginRst.equals("success"));
+
+							if (strLoginRst.equals(null)) {
+
+								Log.i("JSON", "连接失败");
+								Message message = new Message();
+								message.what = 5;
+								handler.sendMessage(message);
+								pdlogin.dismiss();
+							}else if (strLoginRst.equals("{\"Status\":\"Success\"}")) {
+								
+								Message message = new Message();
+								message.what = 1;
+								handler.sendMessage(message);
+								pdlogin.dismiss();
+
+							} else if (strLoginRst
+									.equals("{\"Status\":\"NotHaveUser\"}")) {
+								Message message = new Message();
+								message.what = -1;
+								handler.sendMessage(message);
+								pdlogin.dismiss();
+
+							}else if (strLoginRst
+									.equals("{\"Status\":\"PasswordError\"}")) {
+								Message message = new Message();
+								message.what = 2;
+								handler.sendMessage(message);
+								pdlogin.dismiss();
+
+							} else {
+								Message message = new Message();
+								message.what = 5;
+								handler.sendMessage(message);
+								pdlogin.dismiss();
+//								Tools.mToast(Login.this, "有问题了");
+//								pdlogin.dismiss();
+							}
+						}
+					});
+					threadUpdateInfo.start();
+
+				} catch (Exception e) {
+					
+
+					Toast.makeText(UpdateInfo.this, "连接服务器失败···",
+							Toast.LENGTH_SHORT).show();
+					pdlogin.dismiss();
+					e.printStackTrace();
+					Toast.makeText(UpdateInfo.this, "修改成功", Toast.LENGTH_SHORT).show();
+				}
+				
+			}
+
+			private void transPhonenumber() {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	
