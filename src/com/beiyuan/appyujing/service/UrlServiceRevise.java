@@ -1,18 +1,15 @@
 package com.beiyuan.appyujing.service;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -31,7 +28,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class UrlServiceImpl implements UrlService {
+public class UrlServiceRevise implements UrlService {
 	private static final String TAG = "UrlServiceImpl";
 
  String IP="172.18.69.24:8080";
