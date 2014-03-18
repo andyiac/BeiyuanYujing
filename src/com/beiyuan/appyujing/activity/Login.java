@@ -1,8 +1,5 @@
 package com.beiyuan.appyujing.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,8 +39,7 @@ public class Login extends MyActivity {
 	String password;
 
 	private ProgressDialog pdlogin;
-	List<String> paramsKey;
-	List<String> paramsValue;
+	
 	JSONObject jsonLoginRst;
 	private UrlService urlService = new UrlServiceImpl();
 	Handler handler;

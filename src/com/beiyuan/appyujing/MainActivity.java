@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import com.beiyuan.appyujing.view.Fragment1;
 import com.beiyuan.appyujing.view.Fragment2;
 import com.beiyuan.appyujing.view.Fragment3;
-import com.beiyuan.appyujing.view.Fragment4;
+import com.beiyuan.appyujing.view.News;
 import com.beiyuan.appyujing.view.PersonalCenter;
 
 import android.os.Bundle;
@@ -26,7 +26,7 @@ public class MainActivity extends FragmentActivity {
 	public static RadioGroup mTabRg;
 
 	public static final Class[] fragments = { Fragment1.class, Fragment2.class,
-				Fragment3.class, Fragment4.class,PersonalCenter.class };
+				Fragment3.class, News.class,PersonalCenter.class };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
