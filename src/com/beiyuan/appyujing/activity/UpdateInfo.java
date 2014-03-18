@@ -3,9 +3,13 @@ package com.beiyuan.appyujing.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -54,13 +58,13 @@ public class UpdateInfo extends MyActivity{
 	//网络传输数据变量
 	ArrayList<String> phoneKey;
 	ArrayList<String> phoneValue;
-	String strLoginRst;
+	String strUpdateInfoRst;
 	private UrlService urlService = new UrlServiceImpl();
 	Handler handler;
 	private ProgressDialog pdlogin;
-	SharedPreferences sp1;
-	SharedPreferences sp2;
 	SimpleAdapter adapter3;
+	JSONObject obj;
+	JSONObject jsonUpdateInfoRst;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -364,7 +368,9 @@ public class UpdateInfo extends MyActivity{
 			}
 
 		});
-	    mTitle.setRightButton("完成", new OnRightButtonClickListener() {
+	  
+		
+		mTitle.setRightButton("完成", new OnRightButtonClickListener() {
 			
 			@Override
 			public void onClick(View button) {
@@ -373,32 +379,62 @@ public class UpdateInfo extends MyActivity{
 				
 				System.out.println("password =" + password);
 				System.out.println("number = " + number);
-				transPhonenumber();
-				transPassword();
-				
+				transData();
+				handler = new Handler() {
+
+					public void handleMessage(Message msg) {
+
+						switch (msg.what) {
+						case 1:
+							Toast.makeText(UpdateInfo.this, "登录成功", Toast.LENGTH_SHORT)
+									.show();
+//							Editor editor = preferences.edit();
+//							editor.putString("name", username);
+//							editor.putString("pswd", password);
+//							editor.commit();
+
+							// Intent intent = new Intent();
+							// intent.setClass(Login.this, AboutUs.class);
+							// startActivity(intent);
+							// finish();
+
+							break;
+
+//						case -1:
+//							Toast.makeText(Login.this, "用户名无效", Toast.LENGTH_SHORT)
+//									.show();
+//							break;
+//						case 2:
+//							Toast.makeText(Login.this, "密码错误", Toast.LENGTH_SHORT)
+//									.show();
+//							break;
+						case 5:
+							Toast.makeText(UpdateInfo.this, "连接服务器失败", Toast.LENGTH_SHORT)
+									.show();
+							break;
+						}
+					}
+				};
+
 				
 				
 			}
 
-			private void transPassword() {
+			private void transData() {
 				pdlogin = Tools.pd(UpdateInfo.this);
-				
-				try{// 从这里将开始连接服务器
-					phoneKey = new ArrayList<String>();
-					phoneValue = new ArrayList<String>();
-					// 和服务端对应的属性有服务端Action接收
-					phoneKey.add("userid");
-					phoneKey.add("username");
-					// key相应的值
-					phoneValue.add("密码");
-					phoneValue.add(password);
-//
-//					System.out.println("password============" + password);
-//
-//					System.out.println("u_name============" + number);
+				obj = new JSONObject();
+				try {
+					// 从这里将开始连接服务器
+
+					obj.put("name", "张晓林");
+					obj.put("phonenumber", number);
+					obj.put("password", password);
+					System.out.println("phonenumber============" + number);
+
+					System.out.println("password============" + password);
 
 					// 登陆连接服务器，开辟新的线程
-					Thread threadUpdateInfo = new Thread(new Runnable() {
+					Thread threadLogin = new Thread(new Runnable() {
 
 						@Override
 						public void run() {
@@ -407,75 +443,78 @@ public class UpdateInfo extends MyActivity{
 
 							// strLoginRst = "success";
 
-//							strLoginRst = urlService.sentParams2Server(
-//									phoneKey, phoneValue);
+							jsonUpdateInfoRst = urlService
+									.sentParams2Complete(obj);
 
-							System.out.println("strLoginRst======"
-									+ strLoginRst);
-							Log.i("JSON", "strLoginRst"+strLoginRst);
-//							System.out.println("观察饭返回值是不是布尔型的========"
-//									+ strLoginRst.equals("success"));
+							System.out.println("jsonLoginRst======"
+									+ jsonUpdateInfoRst);
+							Log.i("JSON", "jsonLoginRst" + jsonUpdateInfoRst);
 
-							if (strLoginRst.equals(null)) {
-
-								Log.i("JSON", "连接失败");
+							System.out.println("json = "
+									+ jsonUpdateInfoRst.toString());
+							try {
+								strUpdateInfoRst = jsonUpdateInfoRst
+										.getString("Status");
+							} catch (JSONException e) {
+								e.printStackTrace();
 								Message message = new Message();
 								message.what = 5;
 								handler.sendMessage(message);
 								pdlogin.dismiss();
-							}else if (strLoginRst.equals("{\"Status\":\"Success\"}")) {
-								
+								return;
+							}
+
+							if (strUpdateInfoRst.equals("Success")) {
+
 								Message message = new Message();
 								message.what = 1;
 								handler.sendMessage(message);
 								pdlogin.dismiss();
 
-							} else if (strLoginRst
-									.equals("{\"Status\":\"NotHaveUser\"}")) {
-								Message message = new Message();
-								message.what = -1;
-								handler.sendMessage(message);
-								pdlogin.dismiss();
-
-							}else if (strLoginRst
-									.equals("{\"Status\":\"PasswordError\"}")) {
-								Message message = new Message();
-								message.what = 2;
-								handler.sendMessage(message);
-								pdlogin.dismiss();
-
-							} else {
+							} 
+//							else if (strUpdateInfoRst.equals("NotHaveUser")) {
+//								Message message = new Message();
+//								message.what = -1;
+//								handler.sendMessage(message);
+//								pdlogin.dismiss();
+//
+//							} else if (strUpdateInfoRst.equals("PasswordError")) {
+//								Message message = new Message();
+//								message.what = 2;
+//								handler.sendMessage(message);
+//								pdlogin.dismiss();
+//
+//							} 
+							else {
 								Message message = new Message();
 								message.what = 5;
 								handler.sendMessage(message);
 								pdlogin.dismiss();
-//								Tools.mToast(Login.this, "有问题了");
-//								pdlogin.dismiss();
 							}
 						}
 					});
-					threadUpdateInfo.start();
+					threadLogin.start();
 
 				} catch (Exception e) {
-					
 
 					Toast.makeText(UpdateInfo.this, "连接服务器失败···",
 							Toast.LENGTH_SHORT).show();
 					pdlogin.dismiss();
 					e.printStackTrace();
-					Toast.makeText(UpdateInfo.this, "修改成功", Toast.LENGTH_SHORT).show();
 				}
-				
 			}
+			
+        });
 
-			private void transPhonenumber() {
-				// TODO Auto-generated method stub
+	    }
+
 				
-			}
-		});
+	}
+
+
 	
-	}
 
 
-	}
+
+	
 
