@@ -110,7 +110,7 @@ public class PullDownView extends LinearLayout implements OnScrollOverListener {
 			mListView.setBottomPosition(index);
 			mFooterLoadingView.setVisibility(View.VISIBLE);
 		} else {
-			mFooterTextView.setText("邮件不自动收取");
+			mFooterTextView.setText("新闻不自动收取");
 			mFooterLoadingView.setVisibility(View.GONE);
 		}
 		mEnableAutoFetchMore = enable;
@@ -186,7 +186,7 @@ public class PullDownView extends LinearLayout implements OnScrollOverListener {
 
 			case WHAT_DID_MORE: {
 				mIsFetchMoreing = false;
-				mFooterTextView.setText("更多邮件");
+				mFooterTextView.setText("更多新闻");
 				mFooterLoadingView.setVisibility(View.GONE);
 			}
 			}

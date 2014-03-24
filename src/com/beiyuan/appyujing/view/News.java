@@ -1,89 +1,164 @@
+/*
+ * Copyright (C) 2012 yueyueniao
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.beiyuan.appyujing.view;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
-import com.beiyuan.appyujing.MainActivity;
 import com.beiyuan.appyujing.R;
-import com.beiyuan.appyujing.view.PullDownView.OnPullDownListener;
-import com.beiyuan.appyujing.view.TitleView.OnLeftButtonClickListener;
 
+public class News extends Fragment {
+	//
+	// private Button showLeft;
+	// private Button showRight;
+	private MyAdapter mAdapter;
+	private ViewPager mPager;
 
-public class News extends Fragment{
-	private TitleView mTitle;
-	
+	private ArrayList<Fragment> pagerItemList = new ArrayList<Fragment>();
 
-	View view;
-
-	List<Map<String, String>> list = new ArrayList<Map<String, String>>();;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 	}
-	@Override
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment4, container, false);
-//		init();
-//		getMyView();
-		return view;
-		
-		
-	}
+		View mView = inflater.inflate(R.layout.fragment4, null);
 
-	/*
-	*顶部菜单栏
-	*/
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	
+		// showLeft = (Button) mView.findViewById(R.id.showLeft);
+		// showRight = (Button) mView.findViewById(R.id.showRight);
+		mPager = (ViewPager) mView.findViewById(R.id.pager);
 
-		mTitle = (TitleView) getView().findViewById(R.id.title);
-		mTitle.setTitle("新闻");
-		mTitle.setLeftButton("返回", new OnLeftButtonClickListener(){
+		NewsYuJingPiceFragment1 page1 = new NewsYuJingPiceFragment1();
+		NewsYuJingPiceFragment1 page2 = new NewsYuJingPiceFragment1();
+		pagerItemList.clear();
+		pagerItemList.add(page1);
+		pagerItemList.add(page2);
+		mAdapter = new MyAdapter(getChildFragmentManager());
+		mPager.setAdapter(null);
+		mPager.removeAllViews();
+		mPager.setAdapter(mAdapter);
+		mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 			@Override
-			public void onClick(View button) {
-				MainActivity.mTabHost.setCurrentTab(0);
-				MainActivity.mTabRg.check(R.id.tab_rb_1);
+			public void onPageSelected(int position) {
+
+				if (myPageChangeListener != null)
+					myPageChangeListener.onPageSelected(position);
+
 			}
-			
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int position) {
+
+			}
 		});
-//		mTitle.setRightButton("帮忙", new OnRightButtonClickListener() {
-//
-//			@Override
-//			public void onClick(View button) {
-//				Toast.makeText(getActivity(), "可以点击", Toast.LENGTH_SHORT).show();
-//			}
-//		});
+		// mPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager())
+		// {
+		//
+		//
+		// @Override
+		// public int getCount() {
+		// return 2;
+		// }
+		//
+		// @Override
+		// public Fragment getItem(int arg0) {
+		// return
+		// SwitcherUtils.getTableFragment(arg0==0?FragmentType.TYPE_COMMUNITY_SERVICE:FragmentType.TYPE_COMMUNITY_ACTIVE);
+		//
+		// }
+		// });
+		
+		return mView;
+	}
+
+//	@Override
+//	public void onDestroyView() {
+//		// TODO Auto-generated method stub
+//		// ((FragmentPagerAdapter)mViewPager.getAdapter()).
+//		mPager.setAdapter(null);
+//		mPager.removeAllViews();
+//		super.onDestroyView();
+//	}
+
+	public boolean isFirst() {
+		if (mPager.getCurrentItem() == 0)
+			return true;
+		else
+			return false;
+	}
+
+	public boolean isEnd() {
+		if (mPager.getCurrentItem() == pagerItemList.size() - 1)
+			return true;
+		else
+			return false;
+	}
+
+	public class MyAdapter extends FragmentPagerAdapter {
+		public MyAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public int getCount() {
+			return pagerItemList.size();
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+
+			Fragment fragment = null;
+			if (position < pagerItemList.size())
+				fragment = pagerItemList.get(position);
+			else
+				fragment = pagerItemList.get(0);
+
+			return fragment;
+
+		}
+	}
+
+	private MyPageChangeListener myPageChangeListener;
+
+	public void setMyPageChangeListener(MyPageChangeListener l) {
+
+		myPageChangeListener = l;
 
 	}
+
+	public interface MyPageChangeListener {
+		public void onPageSelected(int position);
+	}
+
 }
