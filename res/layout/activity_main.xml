@@ -41,7 +41,7 @@
             android:id="@+id/tab_rb_4"
             style="@style/tab_rb_style"
             android:drawableTop="@drawable/tab_selector_wo"
-            android:text="个人" />
+            android:text="新闻" />
         <RadioButton
             android:id="@+id/tab_rb_5"
             style="@style/tab_rb_style"

@@ -174,13 +174,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.beiyuan.appyujing.view.CornerListView
-        android:id="@+id/list1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/shape_bg_listview"
-        android:cacheColorHint="@null" />
-
 </LinearLayout>
