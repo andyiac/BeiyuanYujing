@@ -119,9 +119,9 @@ public class UpdateInfo extends MyActivity{
 		HashMap<String, String> map2 = new HashMap<String, String>();
 	
 		map1.put("user_name","姓名");
-		map1.put("user_id", "孙晓林");
+		map1.put("user_id", "张伟");
 	    map2.put("user_name", "昵称");
-	    map2.put("user_id", "死一只鸟");
+	    map2.put("user_id", "天天");
 	
 		map_list1.add(map1);
 		map_list1.add(map2);
@@ -142,7 +142,7 @@ public class UpdateInfo extends MyActivity{
 		HashMap<String, String> map3 = new HashMap<String, String>();
 	
 		map1.put("user_name","年级");
-		map1.put("user_id", "2012");
+		map1.put("user_id", "2011");
 		map2.put("user_name","学号");
 		map2.put("user_id", "201242247");
 	    map3.put("user_name", "身份证号");
@@ -172,11 +172,11 @@ public class UpdateInfo extends MyActivity{
 			map1.put("user_name","专业");
 			map1.put("user_id", "电子信息工程");
 		    map2.put("user_name", "班级");
-		    map2.put("user_id", "三班");
+		    map2.put("user_id", "一班");
 			map3.put("user_name","手机号");
-			map3.put("user_id", "15369302550");
+			map3.put("user_id", "153233455546");
 		    map4.put("user_name", "密码");
-		    map4.put("user_id","******");
+		    map4.put("user_id","*********");
 	
 			map_list3.add(map1);
 			map_list3.add(map2);

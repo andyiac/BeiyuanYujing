@@ -3,7 +3,7 @@ package com.beiyuan.appyujing;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.beiyuan.appyujing.view.Fragment1;
+import com.beiyuan.appyujing.view.VoiceControlView;
 import com.beiyuan.appyujing.view.Fragment2;
 import com.beiyuan.appyujing.view.Fragment3;
 import com.beiyuan.appyujing.view.News;
@@ -25,7 +25,7 @@ public class MainActivity extends FragmentActivity {
 	public static FragmentTabHost mTabHost;
 	public static RadioGroup mTabRg;
 
-	public static final Class[] fragments = { Fragment1.class, Fragment2.class,
+	public static final Class[] fragments = { VoiceControlView.class, Fragment2.class,
 				Fragment3.class, News.class,PersonalCenter.class };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

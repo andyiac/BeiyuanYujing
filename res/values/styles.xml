@@ -46,4 +46,10 @@
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
     </style>
+    
+    <style name="Text.Title.Voice" parent="@style/Text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>
