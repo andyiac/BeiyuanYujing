@@ -52,10 +52,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 	private static final int WHAT_DID_REFRESH = 1;
 	/** Handler What更多数据完毕 **/
 	private static final int WHAT_DID_MORE = 2;
-	
-	
-	
-	
+
 	protected static final String TAG = "NewsYuJingPiceFragment1";
 
 	int page = 1;
@@ -66,11 +63,11 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 	JSONObject obj;
 	JSONArray arr;
 	private UrlService urlService = new UrlServiceImpl();
-	
-	
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.news_yujing_pice_frag_1, null);
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
 		handler = new Handler() {
 
 			public void handleMessage(Message msg) {
@@ -85,14 +82,14 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 							"网络状态不可用！\n请先设置网络", Toast.LENGTH_LONG).show();
 					break;
 				case 1:
-					
+
 					mAdapter.notifyDataSetChanged();
-				
+
 					break;
 				}
 			}
 		};
-		
+
 		if (Util.isNetworkAvailable(NewsYuJingPiceFragment1.this.getActivity())) {
 
 			Thread threadSet = new Thread(new Runnable() {
@@ -104,7 +101,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 
 					obj = new JSONObject();
 					try {
-						obj.put("news",1 );
+						obj.put("news", 1);
 						arr = urlService.sentParams2News(obj);
 						Log.i(TAG, arr.toString());
 						list.clear();
@@ -119,12 +116,12 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 						Message message = new Message();
 						message.what = 1;
 						handler.sendMessage(message);
-						
+
 					} catch (JSONException e) {
 						Message message = new Message();
 						message.what = -2;
 						handler.sendMessage(message);
-						Log.i(TAG,"e="+ e.toString());
+						Log.i(TAG, "e=" + e.toString());
 					}
 				}
 			});
@@ -134,6 +131,56 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 			Toast.makeText(NewsYuJingPiceFragment1.this.getActivity(),
 					"网络状态不可用！\n请先设置网络", Toast.LENGTH_LONG).show();
 		}
+	}
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.news_yujing_pice_frag_1, null);
+
+		//
+		// if
+		// (Util.isNetworkAvailable(NewsYuJingPiceFragment1.this.getActivity()))
+		// {
+		//
+		// Thread threadSet = new Thread(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// // TODO Auto-generated method stub
+		// Looper.prepare();
+		//
+		// obj = new JSONObject();
+		// try {
+		// // obj.put("news",1 );
+		// // arr = urlService.sentParams2News(obj);
+		// // Log.i(TAG, arr.toString());
+		// list.clear();
+		// for (int i = 0; i < arr.length(); i++) {
+		// Map<String, String> map = new HashMap<String, String>();
+		// JSONObject temp = (JSONObject) arr.get(i);
+		// map.put("Theme", temp.getString("Theme"));
+		// map.put("href", temp.getString("Url"));
+		// list.add(map);
+		// Log.i("JSON", "list1=" + list.toString());
+		// }
+		// Message message = new Message();
+		// message.what = 1;
+		// handler.sendMessage(message);
+		//
+		// } catch (JSONException e) {
+		// Message message = new Message();
+		// message.what = -2;
+		// handler.sendMessage(message);
+		// Log.i(TAG,"e="+ e.toString());
+		// }
+		// }
+		// });
+		// threadSet.start();
+
+		// } else {
+		// Toast.makeText(NewsYuJingPiceFragment1.this.getActivity(),
+		// "网络状态不可用！\n请先设置网络", Toast.LENGTH_LONG).show();
+		// }
 		getMyView();
 
 		return view;
@@ -185,6 +232,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 		Toast.makeText(this.getActivity(), "啊，你点中我了 " + position,
 				Toast.LENGTH_SHORT).show();
 	}
+
 	/** 刷新事件接口 这里要注意的是获取更多完 要关闭 刷新的进度条RefreshComplete() **/
 	@Override
 	public void onRefresh() {
@@ -202,9 +250,9 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 					try {
 						// 隐藏并且禁用头部刷新
 						mPullDownView.setHideHeader();
-						obj.put("news",2 );
+						obj.put("news", 2);
 						arr = urlService.sentParams2News(obj);
-						Log.i(TAG,"arr2=" +arr.toString());
+						Log.i(TAG, "arr2=" + arr.toString());
 						list.clear();
 						for (int i = 0; i < arr.length(); i++) {
 							Map<String, String> map = new HashMap<String, String>();
@@ -218,14 +266,14 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 						Message message = new Message();
 						message.what = 1;
 						handler.sendMessage(message);
-						
+
 					} catch (JSONException e) {
 						mPullDownView.RefreshComplete();// 这个事线程安全的 可看源代码
 						Message message = new Message();
 						message.what = -2;
 						handler.sendMessage(message);
-						Log.i(TAG,"e="+ e.toString());
-					}finally{
+						Log.i(TAG, "e=" + e.toString());
+					} finally {
 						// 显示并且可以使用头部刷新
 						mPullDownView.setShowHeader();
 					}
@@ -239,8 +287,6 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 					"网络状态不可用！\n请先设置网络", Toast.LENGTH_LONG).show();
 		}
 	}
-
-	
 
 	/** 刷新事件接口 这里要注意的是获取更多完 要关闭 更多的进度条 notifyDidMore() **/
 	@Override
@@ -256,9 +302,9 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 
 					obj = new JSONObject();
 					try {
-						obj.put("news",3 );
+						obj.put("news", 3);
 						arr = urlService.sentParams2News(obj);
-						Log.i(TAG,"arr2=" +arr.toString());
+						Log.i(TAG, "arr2=" + arr.toString());
 						for (int i = 0; i < arr.length(); i++) {
 							Map<String, String> map = new HashMap<String, String>();
 							JSONObject temp = (JSONObject) arr.get(i);
@@ -266,25 +312,25 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 							map.put("href", temp.getString("Url"));
 							list.add(map);
 						}
-						 mPullDownView.notifyDidMore();
+						mPullDownView.notifyDidMore();
 						Log.i(TAG, "list2=" + list.toString());
 						Message message = new Message();
 						message.what = 1;
 						handler.sendMessage(message);
-						
+
 					} catch (JSONException e) {
-						 mPullDownView.notifyDidMore();
+						mPullDownView.notifyDidMore();
 						Message message = new Message();
 						message.what = -2;
 						handler.sendMessage(message);
-						Log.i(TAG,"e="+ e.toString());
+						Log.i(TAG, "e=" + e.toString());
 					}
 				}
 			});
 			threadRefresh.start();
 
 		} else {
-			 mPullDownView.notifyDidMore();
+			mPullDownView.notifyDidMore();
 			Toast.makeText(NewsYuJingPiceFragment1.this.getActivity(),
 					"网络状态不可用！\n请先设置网络", Toast.LENGTH_LONG).show();
 		}
