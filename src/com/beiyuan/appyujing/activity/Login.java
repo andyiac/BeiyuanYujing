@@ -1,5 +1,10 @@
 package com.beiyuan.appyujing.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,12 +20,17 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.beiyuan.appyujing.R;
+import com.beiyuan.appyujing.data.MyClass;
 import com.beiyuan.appyujing.service.UrlService;
 import com.beiyuan.appyujing.service.UrlServiceImpl;
 import com.beiyuan.appyujing.tools.Tools;
@@ -37,15 +47,16 @@ public class Login extends MyActivity {
 	private Button bt_login;
 	String username;
 	String password;
-
 	private ProgressDialog pdlogin;
-	
 	JSONObject jsonLoginRst;
 	private UrlService urlService = new UrlServiceImpl();
 	Handler handler;
 
 	JSONObject obj;
 	String strLoginRst;
+	String shenfen;
+	private Spinner spinner;
+	public String myShenfens[] = { "学生", "普通教师", "辅导员", "领导" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +76,7 @@ public class Login extends MyActivity {
 
 		// 忘记密码
 		forget();
-
+		shenfenCheck();
 		loginOnClick();
 		handler = new Handler() {
 
@@ -102,6 +113,46 @@ public class Login extends MyActivity {
 				}
 			}
 		};
+	}
+
+	/**
+	 * 选择身份
+	 * **/
+	private void shenfenCheck() {
+		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+
+		for (int i = 0; i < myShenfens.length; i++) {
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			map.put("name", myShenfens[i]);
+
+			data.add(map);
+
+		}
+
+		SimpleAdapter adapterClass = new SimpleAdapter(this, data,
+				android.R.layout.simple_spinner_item, new String[] { "name" },
+				new int[] { android.R.id.text1 });
+		adapterClass
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		spinner.setAdapter(adapterClass);
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				shenfen = myShenfens[arg2];
+				Log.e("LOGIN", "shenfen====" + shenfen);
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 
@@ -123,13 +174,10 @@ public class Login extends MyActivity {
 					try {
 						// 从这里将开始连接服务器
 
-						obj.put("role", "老师");
+						obj.put("role",shenfen );
 						obj.put("password", password);
 						obj.put("username", username);
-						System.out.println("password============" + password);
-
-						System.out.println("u_name============" + username);
-
+						Log.i("LOGIN", obj.toString());
 						// 登陆连接服务器，开辟新的线程
 						Thread threadLogin = new Thread(new Runnable() {
 
@@ -206,14 +254,11 @@ public class Login extends MyActivity {
 
 	private void forget() {
 		tv_forget.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Tools.mToast(Login.this, "请各班负责人统计，统一到教学科修改");
 			}
 		});
-
 	}
 
 	private void init() {
@@ -221,6 +266,7 @@ public class Login extends MyActivity {
 		et_username = (EditText) findViewById(R.id.login_username);
 		et_password = (EditText) findViewById(R.id.login_password);
 		bt_login = (Button) findViewById(R.id.login_bt_login);
+		spinner = (Spinner) findViewById(R.id.login_shenfen);
 		// rg_status = (RadioGroup)findViewById(R.id.login_status);
 		// rb_instructor = (RadioButton)findViewById(R.id.radio_instructor);
 		// rb_teacher = (RadioButton)findViewById(R.id.radio_teacher);

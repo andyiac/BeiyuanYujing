@@ -192,6 +192,48 @@ public class UrlServiceImpl implements UrlService {
 		}
 		return listMap;
 	}
+	
+	
+	
+	
+	
+	/*
+	 * 方法的优化参数封装多少参数都能用
+	 */
+	@Override
+	public JSONArray sentParams2News(JSONObject obj) {
+
+		String uriAPI = "http://" + IP + "/JWGL_Server_1/LoginServlet";
+
+		// String strResult = "FAIL";
+
+		Log.i("JSON", obj.toString());
+		HttpEntity entity = HttpUtils.getHttpEntity(uriAPI, 2, obj);
+		JSONArray arr = new JSONArray() ;
+		InputStream in = HttpUtils.getInputStream(entity);
+		if (in != null) {
+			try {
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(in));
+				StringBuilder sb = new StringBuilder();
+				String s = null;
+				while ((s = br.readLine()) != null) {
+					sb.append(s);
+				}
+				arr = new JSONArray(sb.toString());
+				Log.i("JSON", arr.toString());
+				return arr;
+
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				return arr;
+			}
+		}
+		Log.i("JSON", arr.toString());
+		return arr;
+
+	}
 }
 
 

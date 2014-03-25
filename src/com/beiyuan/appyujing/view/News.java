@@ -54,7 +54,7 @@ public class News extends Fragment {
 		mPager = (ViewPager) mView.findViewById(R.id.pager);
 
 		NewsYuJingPiceFragment1 page1 = new NewsYuJingPiceFragment1();
-		NewsYuJingPiceFragment1 page2 = new NewsYuJingPiceFragment1();
+		NewsYuJingPiceFragment2 page2 = new NewsYuJingPiceFragment2();
 		pagerItemList.clear();
 		pagerItemList.add(page1);
 		pagerItemList.add(page2);

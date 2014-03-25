@@ -3,6 +3,7 @@ package com.beiyuan.appyujing.service;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public interface UrlService {
@@ -13,4 +14,9 @@ public interface UrlService {
 	JSONObject sentParams2Complete(JSONObject obj);
 
 	List<Map<String, Object>> getListMaps(String key, String jsonString);
+	
+	
+	JSONArray sentParams2News(JSONObject obj);
+	
+	
 }
