@@ -9,14 +9,15 @@ import org.json.JSONObject;
 public interface UrlService {
 
 	JSONObject sentParams2Server(JSONObject obj);
-	String sentParams2RegisterServer(List<String> paramsKey, List<String> paramsValue);
-	
+
+	JSONObject sentParams2RegisterServer(JSONObject obj);
+
 	JSONObject sentParams2Complete(JSONObject obj);
 
-	List<Map<String, Object>> getListMaps(String key, String jsonString);
-	
-	
+	String getJsonContent();
+
+	List<String> getCollegeList(String key, String jsonString);
+
 	JSONArray sentParams2News(JSONObject obj);
-	
-	
+
 }

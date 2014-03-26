@@ -3,6 +3,10 @@ package com.beiyuan.appyujing.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.beiyuan.appyujing.R;
 import com.beiyuan.appyujing.data.College;
 import com.beiyuan.appyujing.data.Grade;
@@ -55,21 +59,18 @@ public class RegisterFinish extends MyActivity {
 	private String gradeName;
 	private String professionName;
 	private String className;
-	private EditText studentName, studentNickName;
-	private EditText studentId, studentPhone;
-	private EditText studentIdCard, studentPassword;
-	private EditText studentPasswordSure;
-	EditText teacherName, teacherNickName;
-	EditText teacherPhone, teacherIdCard;
-	EditText teacherPassword, teacherPasswordSure;
-	LinearLayout collegelayout;
+	private EditText name, nickName;
+	private EditText studentId, phone;
+	private EditText idCard, password;
+	private EditText passwordSure;
+	private LinearLayout collegelayout;
 	private Dialog builder = null;
 	private ProgressDialog pdRegister;
-	List<String> paramsKey;
-	List<String> paramsValue;
-	String flagname;
+	private String flagname;
 	private UrlService urlService = new UrlServiceImpl();
-	Handler handler;
+	private Handler handler;
+	private String strRegisterResult;
+	JSONObject obj;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,12 +125,12 @@ public class RegisterFinish extends MyActivity {
 		mTitle.setLeftButton("返回", new StudentLeftListener());
 		mTitle.setRightButton("完成", new HeadTeacherRightListener());
 		collegelayout = (LinearLayout) findViewById(R.id.teacher_college_layout);
-		teacherName = (EditText) findViewById(R.id.teacher_username);
-		teacherNickName = (EditText) findViewById(R.id.teacher_nickname);
-		teacherPhone = (EditText) findViewById(R.id.teacher_usernum);
-		teacherIdCard = (EditText) findViewById(R.id.teacher_useridcard);
-		teacherPassword = (EditText) findViewById(R.id.teacher_password);
-		teacherPasswordSure = (EditText) findViewById(R.id.teacher_password_sure);
+		name = (EditText) findViewById(R.id.teacher_username);
+		nickName = (EditText) findViewById(R.id.teacher_nickname);
+		phone = (EditText) findViewById(R.id.teacher_usernum);
+		idCard = (EditText) findViewById(R.id.teacher_useridcard);
+		password = (EditText) findViewById(R.id.teacher_password);
+		passwordSure = (EditText) findViewById(R.id.teacher_password_sure);
 		collegelayout.setVisibility(0);
 		EditText teacherCollege = (EditText) findViewById(R.id.teacher_register_college);
 		teacherCollege.setOnClickListener(new OnClickListener() {
@@ -151,12 +152,12 @@ public class RegisterFinish extends MyActivity {
 		mTitle.setTitle("注册");
 		mTitle.setLeftButton("返回", new StudentLeftListener());
 		mTitle.setRightButton("完成", new TeacherRightListener());
-		teacherName = (EditText) findViewById(R.id.teacher_username);
-		teacherNickName = (EditText) findViewById(R.id.teacher_nickname);
-		teacherPhone = (EditText) findViewById(R.id.teacher_usernum);
-		teacherIdCard = (EditText) findViewById(R.id.teacher_useridcard);
-		teacherPassword = (EditText) findViewById(R.id.teacher_password);
-		teacherPasswordSure = (EditText) findViewById(R.id.teacher_password_sure);
+		name = (EditText) findViewById(R.id.teacher_username);
+		nickName = (EditText) findViewById(R.id.teacher_nickname);
+		phone = (EditText) findViewById(R.id.teacher_usernum);
+		idCard = (EditText) findViewById(R.id.teacher_useridcard);
+		password = (EditText) findViewById(R.id.teacher_password);
+		passwordSure = (EditText) findViewById(R.id.teacher_password_sure);
 
 	}
 
@@ -169,13 +170,13 @@ public class RegisterFinish extends MyActivity {
 		mTitle.setTitle("注册");
 		mTitle.setLeftButton("返回", new StudentLeftListener());
 		mTitle.setRightButton("完成", new StudentRightListener());
-		studentName = (EditText) findViewById(R.id.student_username);
-		studentNickName = (EditText) findViewById(R.id.student_usernickname);
+		name = (EditText) findViewById(R.id.student_username);
+		nickName = (EditText) findViewById(R.id.student_usernickname);
 		studentId = (EditText) findViewById(R.id.student_userid);
-		studentPhone = (EditText) findViewById(R.id.student_usernum);
-		studentIdCard = (EditText) findViewById(R.id.student_useridcard);
-		studentPassword = (EditText) findViewById(R.id.student_password);
-		studentPasswordSure = (EditText) findViewById(R.id.student_password_sure);
+		phone = (EditText) findViewById(R.id.student_usernum);
+		idCard = (EditText) findViewById(R.id.student_useridcard);
+		password = (EditText) findViewById(R.id.student_password);
+		passwordSure = (EditText) findViewById(R.id.student_password_sure);
 		collegeSpinner = (Spinner) findViewById(R.id.student_register_college);
 		gradeSpinner = (Spinner) findViewById(R.id.student_register_grade);
 		professionSpinner = (Spinner) findViewById(R.id.student_register_profession);
@@ -415,14 +416,14 @@ public class RegisterFinish extends MyActivity {
 		public void onClick(View button) {
 			// TODO Auto-generated method stub
 
-			String snameText = studentName.getText().toString().trim();
-			String snicknameText = studentNickName.getText().toString().trim();
+			String snameText = name.getText().toString().trim();
+			String snicknameText = nickName.getText().toString().trim();
 			String sidText = studentId.getText().toString().trim();
-			String snumText = studentPhone.getText().toString().trim();
-			String sidCardText = studentIdCard.getText().toString().trim();
+			String snumText = phone.getText().toString().trim();
+			String sidCardText = idCard.getText().toString().trim();
 
-			String spasswordText = studentPassword.getText().toString().trim();
-			String spasswordSureText = studentPasswordSure.getText().toString()
+			String spasswordText = password.getText().toString().trim();
+			String spasswordSureText = passwordSure.getText().toString()
 					.trim();
 			String studentCollege = collegeCheck();
 			String studentGrade = gradeCheck();
@@ -452,12 +453,12 @@ public class RegisterFinish extends MyActivity {
 			}
 			if (spasswordText.length() < 7 || spasswordText.length() > 16) {
 				Tools.mToast(getApplication(), "密码不符合格式，请重新输入");
-				studentPassword.setText("");
-				studentPasswordSure.setText("");
+				password.setText("");
+				passwordSure.setText("");
 			}
 			if (!spasswordSureText.equals(spasswordText)) {
 				Tools.mToast(getApplication(), "密码不一致，请重新输入");
-				studentPasswordSure.setText("");
+				passwordSure.setText("");
 			}
 
 			if ((!"".equals(snameText)) && (!"".equals(snicknameText))
@@ -469,18 +470,14 @@ public class RegisterFinish extends MyActivity {
 					if ((spasswordSureText.equals(spasswordText))) {
 						// 向服务端提交数据
 						pdRegister= Tools.pd(RegisterFinish.this,"正在注册...");
-						
+						obj = new JSONObject();
 						try {
-							// 从这里将开始连接服务器
-							paramsKey = new ArrayList<String>();
-							paramsValue = new ArrayList<String>();
-							// 和服务端对应的属性有服务端Action接收
-							paramsKey.add("user");
-							// key相应的值
-							paramsValue.add(flagname);
+							obj.put("role",flagname);
+						    obj.put("name", snameText);
+						    obj.put("username", snicknameText);
+						    Log.i("mytag", obj.toString());
 
-							// 登陆连接服务器，开辟新的线程
-							Thread threadRegister = new Thread(new Runnable() {
+						    Thread threadLogin = new Thread(new Runnable() {
 
 								@Override
 								public void run() {
@@ -489,53 +486,60 @@ public class RegisterFinish extends MyActivity {
 
 									// strLoginRst = "success";
 
-									String strLoginRst = urlService.sentParams2RegisterServer(
-											paramsKey, paramsValue);
+									JSONObject jsonRegisterResult = urlService
+											.sentParams2RegisterServer(obj);
+									Log.i("JSON", "jsonLoginRst" + jsonRegisterResult);
 
-									System.out.println("strLoginRst======"
-											+ strLoginRst);
+									System.out.println("json = "
+											+ jsonRegisterResult.toString());
+									try {
+										strRegisterResult = jsonRegisterResult
+												.getString("Status");
+									} catch (JSONException e) {
+										e.printStackTrace();
+										Message message = new Message();
+										message.what = 5;
+										handler.sendMessage(message);
+										pdRegister.dismiss();
+										return;
+									}
 
-//									System.out.println("观察饭返回值是不是布尔型的========"
-//											+ strLoginRst.equals("success"));
-
-									if (strLoginRst.equals("{\"success\":\"success\"}")) {
+									if (strRegisterResult.equals("Success")) {
 
 										Message message = new Message();
 										message.what = 1;
 										handler.sendMessage(message);
 										pdRegister.dismiss();
 
-									} else if (strLoginRst
-											.equals("{\"NotHaveUser\":\"NotHaveUser\"}")) {
+									} else if (strRegisterResult.equals("NotHaveUser")) {
 										Message message = new Message();
 										message.what = -1;
 										handler.sendMessage(message);
 										pdRegister.dismiss();
 
-									}else if (strLoginRst
-											.equals("{\"PasswordError\":\"PasswordError\"}")) {
+									} else if (strRegisterResult.equals("PasswordError")) {
 										Message message = new Message();
 										message.what = 2;
 										handler.sendMessage(message);
 										pdRegister.dismiss();
 
 									} else {
-										Tools.mToast(RegisterFinish.this, "有问题了");
+										Message message = new Message();
+										message.what = 5;
+										handler.sendMessage(message);
 										pdRegister.dismiss();
 									}
 								}
 							});
-							threadRegister.start();
+							threadLogin.start();
 
 						} catch (Exception e) {
-							
 
 							Toast.makeText(RegisterFinish.this, "连接服务器失败···",
 									Toast.LENGTH_SHORT).show();
 							pdRegister.dismiss();
 							e.printStackTrace();
 						}
-						
 					}
 				}
 			}

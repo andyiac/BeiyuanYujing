@@ -30,9 +30,7 @@ import android.util.Log;
 public class UrlServiceImpl implements UrlService {
 	private static final String TAG = "UrlServiceImpl";
 
-
-	String IP = "172.18.69.24:8080";
-
+	String IP = "192.168.1.102:8080";
 
 	/*
 	 * 方法的优化参数封装多少参数都能用
@@ -72,62 +70,40 @@ public class UrlServiceImpl implements UrlService {
 
 	}
 
-	// -----------------
+
 	/*
-	 * 方法的优化参数封装多少参数都能用
+	 * 用于发送json数据
 	 */
 	@Override
-	public String sentParams2RegisterServer(List<String> paramsKey,
-			List<String> paramsValue) {
-		System.out.println("用于注册");
-		// String uriAPI = "http://"+IP+"/LoginDemo/login.action";
+	public JSONObject sentParams2RegisterServer(JSONObject obj) {
+		
 		String uriAPI = "http://" + IP + "/LoginDemo/register.action";
-		// String uriAPI =
 
-		/* 建立HTTPost对象 */
-		HttpPost httpRequest = new HttpPost(uriAPI);
-		HttpClient client = new DefaultHttpClient();
-		/*
-		 * NameValuePair实现请求参数的封装
-		 */
-		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		for (int i = 0; i < paramsKey.size(); i++) {
+		Log.i("JSON", obj.toString());
+		HttpEntity entity = HttpUtils.getHttpEntity(uriAPI, 2, obj);
+		JSONObject jo2 = new JSONObject();
+		Log.i("JSON", jo2.toString());
+		InputStream in = HttpUtils.getInputStream(entity);
+		if (in != null) {
+			try {
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(in));
+				StringBuilder sb = new StringBuilder();
+				String s = null;
+				while ((s = br.readLine()) != null) {
+					sb.append(s);
+				}
+				jo2 = new JSONObject(sb.toString());
+				Log.i("JSON", jo2.toString());
+				return jo2;
 
-			params.add(new BasicNameValuePair(paramsKey.get(i), paramsValue
-					.get(i)));// 返回JSon数据
-
-		}
-
-		String strResult = null;
-		try {
-
-			/* 添加请求参数到请求对象 */
-			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-			/* 处理超时 */
-			client.getParams().setParameter(
-					CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
-			/* 发送请求并等待响应 */
-			HttpResponse httpResponse = client.execute(httpRequest);
-			/* 若状态码为200 ok */
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				/* 读返回数据 去掉两头不要的参数 */
-				strResult = EntityUtils.toString(httpResponse.getEntity());
-			} else {
-				System.err.println("Error Response: "
-						+ httpResponse.getStatusLine().toString());
-				strResult = null;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} catch (Exception e) {
-
-			e.printStackTrace();
 		}
-		return strResult;
-
+		Log.i("JSON", jo2.toString());
+		return jo2;
 	}
 
 	@Override
@@ -164,52 +140,19 @@ public class UrlServiceImpl implements UrlService {
 		return jo2;
 	}
 
-	@Override
-	public List<Map<String, Object>> getListMaps(String key, String jsonString) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-		try {
-			JSONObject jsonObject = new JSONObject(jsonString);
-			JSONArray jsonArray = jsonObject.getJSONArray(key);
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-				Map<String, Object> map = new HashMap<String, Object>();
-				// 通过org.json中的迭代器来取Map中的值。
-				Iterator<String> iterator = jsonObject2.keys();
-				while (iterator.hasNext()) {
-					String jsonKey = iterator.next();
-					Object jsonValue = jsonObject2.get(jsonKey);
-					// JSON的值是可以为空的，所以我们也需要对JSON的空值可能性进行判断。
-					if (jsonValue == null) {
-						jsonValue = "";
-					}
-					map.put(jsonKey, jsonValue);
-				}
-				listMap.add(map);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return listMap;
-	}
-	
-	
-	
-	
-	
 	/*
 	 * 方法的优化参数封装多少参数都能用
 	 */
 	@Override
 	public JSONArray sentParams2News(JSONObject obj) {
 
-		String uriAPI = "http://" + IP + "/JWGL_Server_1/LoginServlet";
+		String uriAPI = "http://" + IP + "/getClientNewsList.html";
 
 		// String strResult = "FAIL";
 
 		Log.i("JSON", obj.toString());
 		HttpEntity entity = HttpUtils.getHttpEntity(uriAPI, 2, obj);
-		JSONArray arr = new JSONArray() ;
+		JSONArray arr = new JSONArray();
 		InputStream in = HttpUtils.getInputStream(entity);
 		if (in != null) {
 			try {
@@ -225,7 +168,7 @@ public class UrlServiceImpl implements UrlService {
 				return arr;
 
 			} catch (Exception e) {
-				
+
 				e.printStackTrace();
 				return arr;
 			}
@@ -234,6 +177,53 @@ public class UrlServiceImpl implements UrlService {
 		return arr;
 
 	}
+
+	/**
+	 * 获取学院、年级 数据
+	 */
+	@Override
+	public List<String> getCollegeList(String key, String jsonString) {
+		// TODO Auto-generated method stub
+		List<String> listString = new ArrayList<String>();
+		try {
+			JSONObject jsonObject = new JSONObject(jsonString);
+			// 返回JSON的数组
+			JSONArray jsonArray = jsonObject.getJSONArray(key);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				String msg = jsonArray.getString(i);
+				listString.add(msg);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listString;
+	}
+
+	public String getJsonContent() {
+
+		String uriAPI = "http://" + IP + "/school5/getClientCollege.html";
+		HttpEntity entity = HttpUtils.getHttpEntity(uriAPI, 2);
+		String jsonString = "";
+		InputStream in = HttpUtils.getInputStream(entity);
+		if (in != null) {
+			try {
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(in));
+				StringBuilder sb = new StringBuilder();
+				String s = null;
+				while ((s = br.readLine()) != null) {
+					sb.append(s);
+				}
+				jsonString = sb.toString();
+				Log.i("jsonString", jsonString);
+				return jsonString;
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+				return jsonString;
+			}
+		}
+		return jsonString;
+	}
 }
-
-

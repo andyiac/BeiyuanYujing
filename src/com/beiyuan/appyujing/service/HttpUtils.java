@@ -60,7 +60,44 @@ public class HttpUtils {
         }
         return entity;
     }
+    
+    
+    public static HttpEntity getHttpEntity(String uri,int method){
+    	HttpEntity entity = null;
+        HttpClient client = new DefaultHttpClient();
+        client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
+        client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,10000);
+        HttpUriRequest req = null;
+        switch (method) {
+        case METHOD_GET:
+            req = new HttpGet(uri);
+            break;
+        case METHOD_POST:
+            try {
+                Log.i("info", "post started");
+                req = new HttpPost(uri);
 
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            break;
+        }
+        try {
+            HttpResponse res = client.execute(req);
+            if(res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+                return entity =  res.getEntity();
+            }
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return entity;
+    }
+    
+    
     public static InputStream getInputStream(HttpEntity entity){
         InputStream in = null;
         try {

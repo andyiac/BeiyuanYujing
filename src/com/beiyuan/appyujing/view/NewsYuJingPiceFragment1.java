@@ -101,7 +101,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 
 					obj = new JSONObject();
 					try {
-						obj.put("news", 1);
+						obj.put("index", 1);
 						arr = urlService.sentParams2News(obj);
 						Log.i(TAG, arr.toString());
 						list.clear();
@@ -250,7 +250,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 					try {
 						// 隐藏并且禁用头部刷新
 						mPullDownView.setHideHeader();
-						obj.put("news", 2);
+						obj.put("index", 2);
 						arr = urlService.sentParams2News(obj);
 						Log.i(TAG, "arr2=" + arr.toString());
 						list.clear();
@@ -302,7 +302,7 @@ public class NewsYuJingPiceFragment1 extends Fragment implements
 
 					obj = new JSONObject();
 					try {
-						obj.put("news", 3);
+						obj.put("index", 3);
 						arr = urlService.sentParams2News(obj);
 						Log.i(TAG, "arr2=" + arr.toString());
 						for (int i = 0; i < arr.length(); i++) {
